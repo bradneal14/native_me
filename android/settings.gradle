@@ -1,0 +1,3 @@
+rootProject.name = 'justMe'
+
+include ':app'
