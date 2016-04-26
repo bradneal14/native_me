@@ -6,15 +6,14 @@
 // var React = require('react-native');
 // var Image = React.Image;
 var React = require('react-native');
-var Landing = require('./ios/components/landing.js');
 var Navigator = React.Navigator;
-var Example = require('./ios/components/example.js');
+var One = require('./ios/components/one.js');
 
 
 class justMe extends React.Component {
   render() {
     return (
-      <Example style={styles.container}/>
+      <One style={styles.container}/>
     );
   }
 }
