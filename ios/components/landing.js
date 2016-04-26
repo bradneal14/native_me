@@ -40,9 +40,19 @@ var bgArr = [
 //   return this[~~(Math.random() * this.length)];
 // }
 
+// return (
+  // <React.NavigatorIOS
+  //     style={styles.container}
+  //     initialRoute={{
+  //       title: 'Home',
+  //       component: Landing,
+  //     }}/>
+// );
+
 
 class Landing extends Component {
   buttonClicked(){
+
     this.props.navigator.push({
       title: "Second",
       component: Second
@@ -58,9 +68,9 @@ class Landing extends Component {
     return (
       <Image
         style={styles.bgImage}
-        source={{uri: bgUsing}}>
+        source={require('../../images/night.jpg')}>
         <View style={styles.backdropView}>
-          <Text style={styles.headline}>Welcome Page</Text>
+          <Text style={styles.headline}>Second Page</Text>
         </View>
         <TouchableElement
           style={styles.button}

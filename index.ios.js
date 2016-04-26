@@ -7,17 +7,14 @@
 // var Image = React.Image;
 var React = require('react-native');
 var Landing = require('./ios/components/landing.js');
+var Navigator = React.Navigator;
+var Example = require('./ios/components/example.js');
 
 
 class justMe extends React.Component {
   render() {
     return (
-      <React.NavigatorIOS
-          style={styles.container}
-          initialRoute={{
-            title: 'Home',
-            component: Landing,
-          }}/>
+      <Example/>
     );
   }
 }
@@ -29,3 +26,12 @@ const styles = React.StyleSheet.create({
 });
 
 React.AppRegistry.registerComponent('justMe', () => justMe);
+
+// return (
+//   <React.NavigatorIOS
+//       style={styles.container}
+//       initialRoute={{
+//         title: 'Home',
+//         component: Landing,
+//       }}/>
+// );
