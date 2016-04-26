@@ -68,7 +68,7 @@ class Landing extends Component {
     return (
       <Image
         style={styles.bgImage}
-        source={require('../../images/night.jpg')}>
+        source={require('../../images/green.jpg')}>
         <View style={styles.backdropView}>
           <Text style={styles.headline}>Second Page</Text>
         </View>

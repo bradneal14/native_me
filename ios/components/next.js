@@ -11,7 +11,7 @@
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * @providesModule NavigatorExample
+ * @providesModule NavigatorExample2
  */
 'use strict';
 
@@ -26,7 +26,9 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var Landing = require('./next.js');
+var BreadcrumbNavSample = require('./landing.js');
+var NavigationBarSample = require('./landing.js');
+var JumpingNavSample = require('./landing.js');
 
 class NavButton extends React.Component {
   render() {
@@ -45,23 +47,23 @@ class NavMenu extends React.Component {
   render() {
     return (
       <Image style={styles.scene}
-            source={require('../../images/day.jpg')}>
+            source={require('../../images/night.jpg')}>
         <View style={styles.backdropView}>
-          <Text style={styles.headline}>Welcome Page</Text>
+          <Text style={styles.headline}>Next Page</Text>
         </View>
         <NavButton
           onPress={() => {
-            this.props.navigator.push({ id: 'next' });
+            this.props.navigator.push({ id: 'breadcrumbs' });
           }}
           text="Next"
-          style={styles.button}
+          style={styles.nextButton}
         />
     </Image>
     );
   }
 }
 
-var TabBarExample = React.createClass({
+var NextExample = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -69,16 +71,21 @@ var TabBarExample = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'next') {
-      return <Landing navigator={nav} />;
-    } else {
-      return (
-        <NavMenu
-          message={route.message}
-          navigator={nav}
-          onExampleExit={this.props.onExampleExit}
-        />
-      );
+    switch (route.id) {
+      case 'navbar':
+        return <NavigationBarSample navigator={nav} />;
+      case 'breadcrumbs':
+        return <BreadcrumbNavSample navigator={nav} />;
+      case 'jumping':
+        return <JumpingNavSample navigator={nav} />;
+      default:
+        return (
+          <NavMenu
+            message={route.message}
+            navigator={nav}
+            onExampleExit={this.props.onExampleExit}
+          />
+        );
     }
   },
 
@@ -111,7 +118,7 @@ var TabBarExample = React.createClass({
       if (navigator) {
         var callback = (event) => {
           console.log(
-            `TabBarExample: event ${event.type}`,
+            `NextExample: event ${event.type}`,
             {
               route: JSON.stringify(event.data.route),
               target: event.target,
@@ -177,6 +184,6 @@ var styles = StyleSheet.create({
   }
 });
 
-TabBarExample.external = true;
+NextExample.external = true;
 
-module.exports = TabBarExample;
+module.exports = NextExample;

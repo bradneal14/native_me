@@ -14,14 +14,15 @@ var Example = require('./ios/components/example.js');
 class justMe extends React.Component {
   render() {
     return (
-      <Example/>
+      <Example style={styles.container}/>
     );
   }
 }
 
 const styles = React.StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'black'
   }
 });
 
