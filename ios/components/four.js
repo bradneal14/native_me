@@ -19,7 +19,7 @@ class NavButton extends React.Component {
     return (
       <TouchableHighlight
         style={styles.button}
-        underlayColor="blue"
+        underlayColor='rgba(251, 182, 45, .0)'
         onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.props.text}</Text>
       </TouchableHighlight>
@@ -32,13 +32,14 @@ class NavMenu extends React.Component {
     return (
       <View style={styles.scene}>
         <View style={styles.backdropView}>
-          <Text style={styles.headline}>Four</Text>
+          <Text style={styles.headline}>WELCOME TO    </Text>
+          <Text style={styles.headline_red}>     Me.</Text>
         </View>
         <NavButton
           onPress={() => {
             this.props.navigator.push({ id: 'five' });
           }}
-          text="Next Page"
+          text="BEGIN SETUP"
           style={styles.button}
         />
     </View>
@@ -54,7 +55,7 @@ var Four = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'five') {
+    if (route.id === 'fivee') {
       return <Five navigator={nav} />;
     } else {
       return (
@@ -78,7 +79,7 @@ var Four = React.createClass({
           if (route.sceneConfig) {
             return route.sceneConfig;
           }
-          return Navigator.SceneConfigs.FloatFromBottom;
+          return Navigator.SceneConfigs.FloatFromRight;
         }}
       />
     );
@@ -119,39 +120,47 @@ var styles = StyleSheet.create({
     top: 175
   },
   headline: {
-    fontSize: 50,
-    textAlign: 'center',
+    fontFamily:'AvenirNext-Regular',
+    fontSize: 20,
+    alignSelf: 'center',
     backgroundColor: 'rgba(0,0,0,0)',
-    color: 'red'
+    // color: '#FBBE2F'
+    // color: '#E84C3D' //red
+    color: '#3d84e8' //blue
   },
-  messageText: {
-    fontSize: 17,
-    fontWeight: '500',
-    padding: 15,
-    marginTop: 50,
-    marginLeft: 15,
+  headline_red: {
+    fontFamily:'STHeitiSC-Medium',
+    fontSize: 40,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(0,0,0,0)',
+    // color: '#FBBE2F'
+    color: '#E84C3D' //red
+    // color: '#3d84e8' //blue
   },
   container: {
     flex: 1,
   },
   button: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
     alignSelf: 'center',
-    backgroundColor: 'rgba(255,255,255,.0)',
-    marginTop: 490,
+    backgroundColor: 'rgba(251, 82, 45, .1)',
+    // backgroundColor: 'rgba(150, 150, 150, .1)',
+    marginTop: 520,
     height: 50,
     padding: 0,
     width: 190,
+    borderRadius: 25,
     borderWidth: 0,
     borderColor: 'rgba(255,255,255,.5)',
   },
   buttonText: {
-    fontFamily: 'futura',
-    paddingTop: 10,
-    fontSize: 20,
+    // fontFamily: 'STHeitiSC-Medium',
+    fontFamily: 'AvenirNext-Regular',
+    paddingTop: 15,
+    fontSize: 15,
     fontWeight: '500',
     alignSelf: 'center',
-    color: 'red',
+    color: '#E84C3D',
   },
   scene: {
     flex: 1,
