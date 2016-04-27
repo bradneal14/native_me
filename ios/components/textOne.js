@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var TextOne = require('./textOne.js');
+var Five = require('./five.js');
 
   // underlayColor="#B5B5B5"
 class NavButton extends React.Component {
@@ -32,14 +32,36 @@ class NavMenu extends React.Component {
     return (
       <View style={styles.scene}>
         <View style={styles.backdropView}>
-          <Text style={styles.headline}>WELCOME TO    </Text>
-          <Text style={styles.headline_red}>    Me.</Text>
+          <View>
+            <Text style={styles.headline}>TEXT ONE</Text>
+          </View>
+          <View style={styles.listItemView}>
+            <Text style={styles.listItemText}>
+              Me is here to help you stay on top of your successes and challenges
+              simply and consistently.
+              {'\n'}
+              {'\n'}
+              All you have to do is
+              answer Yes or No to your self-created questions every night before you go
+              to sleep. Me will help you track your emotions, successes and failures
+              of each day.
+              {'\n'}
+              {'\n'}
+              Choose your questions based on what is important for you to know
+              about yourself - what part of your life you want to monitor or assess.
+              At the end of each Term, you will receive a report at the end of
+              each week and or month charting your behaviors and emotions. This will
+              give you a realistic analysis of your
+              progress and pit falls. It is easy and quick.
+            </Text>
+
+          </View>
         </View>
         <NavButton
           onPress={() => {
-            this.props.navigator.push({ id: 'text1' });
+            this.props.navigator.push({ id: 'five' });
           }}
-          text="BEGIN SETUP"
+          text="CONTINUE"
           style={styles.button}
         />
     </View>
@@ -47,7 +69,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var Four = React.createClass({
+var textOne = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -55,8 +77,8 @@ var Four = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'text1') {
-      return <TextOne navigator={nav} />;
+    if (route.id === 'five') {
+      return <Five navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -73,7 +95,7 @@ var Four = React.createClass({
       <Navigator
         ref={this._setNavigatorRef}
         style={styles.container}
-        initialRoute={{ message: 'Message in Four render', }}
+        initialRoute={{ message: 'Message in textOne render', }}
         renderScene={this.renderScene}
         configureScene={(route) => {
           if (route.sceneConfig) {
@@ -117,19 +139,67 @@ var Four = React.createClass({
 
 var styles = StyleSheet.create({
   backdropView: {
-    top: 175
+    top: 50
+  },
+  image: {
+    height: 110,
+    width: 100,
+    marginTop: 10,
+    marginLeft: 10,
+    flexDirection: 'row'
+  },
+  imageAlt: {
+    height: 130,
+    width: 110,
+    marginTop: -15,
+    marginLeft: 10
+
+  },
+  blueListItemText: {
+    color: '#3d84e8',
+    paddingTop: 50,
+    fontFamily:'AvenirNext-Regular', //Camel Case
+    fontSize: 21,
+    textAlign: 'center',
+    paddingLeft: 10,
+  },
+  listItemView:{
+    flexDirection: 'row',
+    backgroundColor: 'rgba(50,50,50,0)',
+    alignSelf: 'center',
+    width: 375,
+    height: 400,
+    marginBottom: 60,
+    borderRadius: 3,
+    borderWidth: 1,
+    borderColor:'rgba(50,50,50,.2)',
+
+  },
+  listItemText: {
+    paddingTop: 20,
+    color: 'red', //red
+    fontFamily:'AvenirNext-Regular', //Camel Case
+    fontSize: 16,
+    textAlign: 'left',
+    paddingLeft: 10,
+    flex: 1
   },
   headline: {
     fontFamily:'AvenirNext-Regular',
-    fontSize: 20,
+    fontSize: 21,
     alignSelf: 'center',
+    marginTop: -21,
+    paddingBottom: 20,
     backgroundColor: 'rgba(0,0,0,0)',
     // color: '#FBBE2F'
     // color: '#E84C3D' //red
-    color: '#3d84e8' //blue
+    color: '#3d84e8', //blue
+    flexDirection: 'row'
+
   },
   headline_red: {
     fontFamily:'STHeitiSC-Medium',
+    // fontFamily:'STHeitiSC-Medium',
     fontSize: 40,
     alignSelf: 'center',
     backgroundColor: 'rgba(0,0,0,0)',
@@ -145,7 +215,7 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'rgba(251, 82, 45, .1)',
     // backgroundColor: 'rgba(150, 150, 150, .1)',
-    marginTop: 520,
+    marginTop: 20,
     height: 50,
     padding: 0,
     width: 190,
@@ -172,6 +242,6 @@ var styles = StyleSheet.create({
   }
 });
 
-Four.external = true;
+textOne.external = true;
 
-module.exports = Four;
+module.exports = textOne;
