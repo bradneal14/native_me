@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var TextTwo = require('./textTwo.js');
+var TextFive = require('./textFive.js');
 
   // underlayColor="#B5B5B5"
 class NavButton extends React.Component {
@@ -28,19 +28,28 @@ class NavButton extends React.Component {
 }
 
 class NavMenu extends React.Component {
+
   render() {
     return (
       <View style={styles.scene}>
         <View style={styles.backdropView}>
           <View style={styles.listItemView}>
             <Text style={styles.listItemText}>
-            Me is here to help you track your daily successes and challenges.
+              At the end of the week, you will receive a report charting your
+              behaviors and emotions.
+            </Text>
+            <Text style={styles.redListItemText}>
+              {'\n'}
+              {'\n'}
+              This will give you a realistic analysis of your
+              progress and pit-falls. {'\n'}
+              It is easy and quick.
             </Text>
           </View>
         </View>
         <NavButton
           onPress={() => {
-            this.props.navigator.push({ id: 'text2' });
+            this.props.navigator.push({ id: 'text5' });
           }}
           text="CONTINUE"
           style={styles.button}
@@ -50,7 +59,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var TextOne = React.createClass({
+var TextFour = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -58,8 +67,8 @@ var TextOne = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'text2') {
-      return <TextTwo navigator={nav} />;
+    if (route.id === 'text55') {
+      return <textFive navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -120,8 +129,8 @@ var TextOne = React.createClass({
 
 var styles = StyleSheet.create({
   backdropView: {
-    top: 170,
-    borderWidth:0
+    top: 160,
+    borderWidth: 0
   },
   image: {
     height: 110,
@@ -137,34 +146,35 @@ var styles = StyleSheet.create({
     marginLeft: 10
 
   },
-  blueListItemText: {
-    color: '#3d84e8', //blue
-    paddingTop: 50,
-    fontFamily:'AvenirNext-Regular', //Camel Case
-    fontSize: 21,
-    textAlign: 'center',
-    paddingLeft: 10,
-    borderWidth: 0,
-  },
-  listItemView:{
-    flexDirection: 'row',
-    backgroundColor: 'rgba(50,50,50,0)',
-    alignSelf: 'center',
-    width: 375,
-    height: 400,
-    marginBottom: 200,
-    borderRadius: 3,
-    borderWidth: 0,
-    borderColor:'rgba(50,50,50,.2)',
-    flexDirection: 'column'
-  },
-  listItemText: {
-    paddingTop: 30,
+  redListItemText: {
+    paddingTop: -30,
     color: '#E84C3D', //red
     fontFamily:'AvenirNext-Regular', //Camel Case
     fontSize: 22,
     textAlign: 'center',
-    paddingLeft: 0,
+    paddingLeft: 10,
+    flex: 1
+  },
+  listItemView:{
+    // flexDirection: 'column',
+    backgroundColor: 'rgba(50,50,50,0)',
+    alignSelf: 'center',
+    width: 375,
+    height: 200,
+    marginBottom: 400,
+    borderRadius: 3,
+    borderWidth: 0,
+    borderColor:'rgba(50,50,50,.2)',
+    justifyContent: 'space-around'
+
+  },
+  listItemText: {
+    paddingTop: 10,
+    color: '#3d84e8', //blue
+    fontFamily:'AvenirNext-Regular', //Camel Case
+    fontSize: 22,
+    textAlign: 'center',
+    paddingLeft: 10,
     flex: 1
   },
   headline: {
@@ -224,6 +234,7 @@ var styles = StyleSheet.create({
   }
 });
 
-TextOne.external = true;
 
-module.exports = TextOne;
+TextFour.external = true;
+
+module.exports = TextFour;

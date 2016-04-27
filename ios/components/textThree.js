@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var TextTwo = require('./textTwo.js');
+var TextFour = require('./textFour.js');
 
   // underlayColor="#B5B5B5"
 class NavButton extends React.Component {
@@ -28,19 +28,26 @@ class NavButton extends React.Component {
 }
 
 class NavMenu extends React.Component {
+
   render() {
     return (
       <View style={styles.scene}>
         <View style={styles.backdropView}>
           <View style={styles.listItemView}>
             <Text style={styles.listItemText}>
-            Me is here to help you track your daily successes and challenges.
+              Choose your questions based on what is important for you to {'\n'} know
+              about yourself.
+            </Text>
+            <Text style={styles.blueListItemText}>
+              {'\n'}
+              {'\n'}
+              Think about what part of your life you want to monitor or assess.
             </Text>
           </View>
         </View>
         <NavButton
           onPress={() => {
-            this.props.navigator.push({ id: 'text2' });
+            this.props.navigator.push({ id: 'text4' });
           }}
           text="CONTINUE"
           style={styles.button}
@@ -50,7 +57,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var TextOne = React.createClass({
+var TextThree = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -58,8 +65,8 @@ var TextOne = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'text2') {
-      return <TextTwo navigator={nav} />;
+    if (route.id === 'text4') {
+      return <TextFour navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -120,8 +127,7 @@ var TextOne = React.createClass({
 
 var styles = StyleSheet.create({
   backdropView: {
-    top: 170,
-    borderWidth:0
+    top: 160
   },
   image: {
     height: 110,
@@ -138,33 +144,34 @@ var styles = StyleSheet.create({
 
   },
   blueListItemText: {
+    paddingTop: -30,
     color: '#3d84e8', //blue
-    paddingTop: 50,
     fontFamily:'AvenirNext-Regular', //Camel Case
-    fontSize: 21,
+    fontSize: 22,
     textAlign: 'center',
     paddingLeft: 10,
-    borderWidth: 0,
+    flex: 1
   },
   listItemView:{
-    flexDirection: 'row',
+    // flexDirection: 'column',
     backgroundColor: 'rgba(50,50,50,0)',
     alignSelf: 'center',
     width: 375,
-    height: 400,
-    marginBottom: 200,
+    height: 200,
+    marginBottom: 400,
     borderRadius: 3,
     borderWidth: 0,
     borderColor:'rgba(50,50,50,.2)',
-    flexDirection: 'column'
+    justifyContent: 'space-around'
+
   },
   listItemText: {
-    paddingTop: 30,
+    paddingTop: 10,
     color: '#E84C3D', //red
     fontFamily:'AvenirNext-Regular', //Camel Case
     fontSize: 22,
     textAlign: 'center',
-    paddingLeft: 0,
+    paddingLeft: 10,
     flex: 1
   },
   headline: {
@@ -224,6 +231,7 @@ var styles = StyleSheet.create({
   }
 });
 
-TextOne.external = true;
 
-module.exports = TextOne;
+TextThree.external = true;
+
+module.exports = TextThree;

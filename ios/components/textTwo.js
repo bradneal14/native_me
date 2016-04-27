@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var TextTwo = require('./textTwo.js');
+var TextThree = require('./textThree.js');
 
   // underlayColor="#B5B5B5"
 class NavButton extends React.Component {
@@ -34,13 +34,16 @@ class NavMenu extends React.Component {
         <View style={styles.backdropView}>
           <View style={styles.listItemView}>
             <Text style={styles.listItemText}>
-            Me is here to help you track your daily successes and challenges.
+              All you have to do is create a few
+              simple questions and answer {'\n'}
+              them each night before {'\n'}
+              you go to sleep.
             </Text>
           </View>
         </View>
         <NavButton
           onPress={() => {
-            this.props.navigator.push({ id: 'text2' });
+            this.props.navigator.push({ id: 'text3' });
           }}
           text="CONTINUE"
           style={styles.button}
@@ -50,7 +53,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var TextOne = React.createClass({
+var TextTwo = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -58,8 +61,8 @@ var TextOne = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'text2') {
-      return <TextTwo navigator={nav} />;
+    if (route.id === 'text3') {
+      return <TextThree navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -120,8 +123,7 @@ var TextOne = React.createClass({
 
 var styles = StyleSheet.create({
   backdropView: {
-    top: 170,
-    borderWidth:0
+    top: 170
   },
   image: {
     height: 110,
@@ -138,13 +140,12 @@ var styles = StyleSheet.create({
 
   },
   blueListItemText: {
-    color: '#3d84e8', //blue
+    color: '#3d84e8',
     paddingTop: 50,
     fontFamily:'AvenirNext-Regular', //Camel Case
     fontSize: 21,
     textAlign: 'center',
     paddingLeft: 10,
-    borderWidth: 0,
   },
   listItemView:{
     flexDirection: 'row',
@@ -156,15 +157,15 @@ var styles = StyleSheet.create({
     borderRadius: 3,
     borderWidth: 0,
     borderColor:'rgba(50,50,50,.2)',
-    flexDirection: 'column'
+
   },
   listItemText: {
-    paddingTop: 30,
-    color: '#E84C3D', //red
+    paddingTop: 10,
+    color: '#3d84e8', //blue
     fontFamily:'AvenirNext-Regular', //Camel Case
     fontSize: 22,
     textAlign: 'center',
-    paddingLeft: 0,
+    paddingLeft: 10,
     flex: 1
   },
   headline: {
@@ -224,6 +225,7 @@ var styles = StyleSheet.create({
   }
 });
 
-TextOne.external = true;
 
-module.exports = TextOne;
+TextTwo.external = true;
+
+module.exports = TextTwo;
