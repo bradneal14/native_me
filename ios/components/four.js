@@ -55,7 +55,7 @@ var Four = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'fivee') {
+    if (route.id === 'five') {
       return <Five navigator={nav} />;
     } else {
       return (

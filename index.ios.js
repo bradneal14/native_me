@@ -7,7 +7,7 @@
 // var Image = React.Image;
 var React = require('react-native');
 var Navigator = React.Navigator;
-var One = require('./ios/components/four.js');
+var One = require('./ios/components/five.js');
 
 
 class justMe extends React.Component {
