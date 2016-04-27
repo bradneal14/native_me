@@ -36,13 +36,16 @@ class NavMenu extends React.Component {
             <Text style={styles.headline}>HOW IT WORKS</Text>
           </View>
           <View style={styles.listItemView}>
-            <Text style={styles.listItemText}>+ Set Questions</Text>
+            <Image source={require('../../images/Ponder.png')} style={styles.image}/>
+            <Text style={styles.listItemText}>  + Set Questions</Text>
           </View>
           <View style={styles.listItemView}>
-            <Text style={styles.listItemText}>+ Log Answers</Text>
+            <Image source={require('../../images/markNote.png')} style={styles.image}/>
+            <Text style={styles.blueListItemText}>  + Log Answers</Text>
           </View>
           <View style={styles.listItemView}>
-            <Text style={styles.listItemText}>+ See Results</Text>
+            <Image source={require('../../images/data.png')} style={styles.imageAlt}/>
+            <Text style={styles.listItemText}> + See Results</Text>
           </View>
         </View>
         <NavButton
@@ -127,7 +130,7 @@ var Five = React.createClass({
 
 var styles = StyleSheet.create({
   backdropView: {
-    top: 100
+    top: 0
   },
   title: {
     // height: 95,
@@ -135,23 +138,44 @@ var styles = StyleSheet.create({
     // backgroundColor: 'rgba(50,50,50,.2)',
     // marginBottom: 50,
   },
+  image: {
+    height: 110,
+    width: 100,
+    marginTop: 10,
+    marginLeft: 10
+  },
+  imageAlt: {
+    height: 130,
+    width: 110,
+    marginTop: -15,
+    marginLeft: 10
+  },
+  blueListItemText: {
+    color: '#3d84e8',
+    paddingTop: 50,
+    fontFamily:'AvenirNext-Regular', //Camel Case
+    fontSize: 21,
+    textAlign: 'center',
+    paddingLeft: 10,
+  },
   listItemView:{
+    flexDirection: 'row',
     backgroundColor: 'rgba(50,50,50,0)',
     alignSelf: 'center',
     width: 375,
-    height: 80,
+    height: 140,
     marginBottom: 20,
     borderRadius: 3,
     borderWidth: 1,
     borderColor:'rgba(50,50,50,.2)'
   },
   listItemText: {
-    paddingTop: 23,
+    paddingTop: 50,
     color: '#E84C3D', //red
-    fontFamily:'AvenirNext-UltraLight', //Camel Case
+    fontFamily:'AvenirNext-Regular', //Camel Case
     fontSize: 21,
     textAlign: 'center',
-    // paddingLeft: 111,
+    paddingLeft: 10,
   },
   headline: {
     fontFamily:'AvenirNext-Regular',
@@ -182,7 +206,7 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'rgba(251, 82, 45, .1)',
     // backgroundColor: 'rgba(150, 150, 150, .1)',
-    marginTop: 220,
+    marginTop: 20,
     height: 50,
     padding: 0,
     width: 190,
