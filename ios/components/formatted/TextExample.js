@@ -70,7 +70,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var Nine = React.createClass({
+var STOCK = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -201,6 +201,6 @@ var styles = StyleSheet.create({
 
 });
 
-Nine.external = true;
+STOCK.external = true;
 
-module.exports = Nine;
+module.exports = STOCK;

@@ -7,7 +7,7 @@
 // var Image = React.Image;
 var React = require('react-native');
 var Navigator = React.Navigator;
-var One = require('./ios/components/nine.js');
+var One = require('./ios/components/formatted/Landing.js');
 //four is WELCOME
 //five is list choice
 

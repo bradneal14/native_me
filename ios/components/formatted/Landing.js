@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var NEXTFILE = require('./NEXTFILE.js');
+var TextExample = require('./TextExample.js');
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -41,15 +41,11 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                HEADER
+                WELCOME TO
               </Text>
             </View>
-            <Text style={styles.centerMainContent}> Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
+            <Text style={styles.centerMainContent}>
+              Me.
             </Text>
 
           </View>
@@ -59,7 +55,7 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.props.navigator.push({ id: 'NEXTFILE' });
+              this.props.navigator.push({ id: 'TextExample' });
             }}
             text="CONTINUE"
             style={styles.button}
@@ -70,7 +66,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var Nine = React.createClass({
+var LANDING = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -78,8 +74,8 @@ var Nine = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'NEXTFILE') {
-      return <NEXTFILE navigator={nav} />;
+    if (route.id === 'TextExample') {
+      return <TextExample navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -143,32 +139,48 @@ var styles = StyleSheet.create({
     paddingTop: 20,
     flex: 1,
     backgroundColor: '#EEEEEE',
-    borderWidth: 1,
+    borderWidth: 0,
     justifyContent: 'space-between'
   },
   buttonBox: {
     alignItems: 'center',
-    borderWidth: 2
+    borderWidth: 0,
+    paddingBottom: 15
   },
   restBox: {
     flex: 1,
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: 'red',
     justifyContent: 'center',
     alignItems: 'center'
   },
   centerBox: {
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: 'green',
   },
   centerHeaderBox: {
     borderColor: 'orange',
-    borderWidth: 1,
+    borderWidth: 0,
     alignSelf: 'flex-start',
-    paddingLeft: 25
+    alignItems: 'center',
+    paddingRight: 5
   },
   centerHeaderText: {
-
+    fontFamily:'AvenirNext-Regular',
+    fontSize: 20,
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: '#3d84e8' //blue
+  },
+  centerMainContent:{
+    borderWidth: 0,
+    borderColor: 'blue',
+    fontFamily:'STHeitiSC-Medium',
+    fontSize: 40,
+    marginTop: -15,
+    paddingLeft: 30,
+    alignSelf: 'flex-end',
+    backgroundColor: 'rgba(0,0,0,0)',
+    color: '#E84C3D',
   },
   button: {
     backgroundColor: 'rgba(251, 82, 45, .1)',
@@ -189,18 +201,9 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#E84C3D',
   },
-  centerMainContent:{
-    fontWeight:'bold',
-    color:'blue',
-    textAlign:'center',
-    fontSize:20,
-    margin: 20,
-    alignSelf: 'center',
-    borderWidth: 1
-    },
 
 });
 
-Nine.external = true;
+LANDING.external = true;
 
-module.exports = Nine;
+module.exports = LANDING;
