@@ -59,8 +59,8 @@ var Eight = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'ninee') {
-      return <Seven navigator={nav} />;
+    if (route.id === 'nine') {
+      return <Nine navigator={nav} />;
     } else {
       return (
         <NavMenu
