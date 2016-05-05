@@ -65,7 +65,9 @@ class NavMenu extends React.Component {
             </View>
             <Text>{show}</Text>
             <TextInput
-              style={styles.inputBox}>
+              ref = "inputt"
+              style={styles.inputBox}
+              onChangeText={(inputt) => this.setState({inputt})}>
             </TextInput>
           </View>
         </View>
@@ -95,7 +97,8 @@ class NavMenu extends React.Component {
         <View style={styles.buttonBox}>
           <NavButton
             onPress={() => {
-              AsyncStorage.setItem("key", "SOMETHING WORKS");
+              var inputValue = this.state.inputt
+              AsyncStorage.setItem("key", inputValue);
               // AsyncStorage.setItem("hello", JSON.stringify(test_object))
             }}
             text="SAVE"
