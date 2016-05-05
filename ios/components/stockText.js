@@ -148,7 +148,8 @@ var styles = StyleSheet.create({
   },
   buttonBox: {
     alignItems: 'center',
-    borderWidth: 2
+    borderWidth: 2,
+    paddingBottom: 15,
   },
   restBox: {
     flex: 1,

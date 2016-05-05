@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var TextExample = require('./TextExample.js');
+var ListThree = require('./ListThree.js');
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -38,14 +38,21 @@ class NavMenu extends React.Component {
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
+          <View style={styles.topBox}>
+            <Image source={require('../../../images/Ponder.png')} style={styles.image}/>
+            <Text style={styles.centerHeaderText}>
+              PICK QUESTIONS
+            </Text>
+          </View>
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
-              <Text style={styles.centerHeaderText}>
-                WELCOME TO
-              </Text>
             </View>
             <Text style={styles.centerMainContent}>
-              Me.
+              Hello hello hello helllo hello
+              Hello hello hello helllo hello
+              Hello hello hello helllo hello
+              Hello hello hello helllo hello
+              Hello hello hello helllo hello
             </Text>
 
           </View>
@@ -55,9 +62,9 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.props.navigator.push({ id: 'TextExample' });
+              this.props.navigator.push({ id: 'ListThree' });
             }}
-            text="BEGIN SETUP"
+            text="CONTINUE"
             style={styles.button}
           />
         </View>
@@ -66,7 +73,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var LANDING = React.createClass({
+var DetailExample = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -74,8 +81,8 @@ var LANDING = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'TextExample') {
-      return <TextExample navigator={nav} />;
+    if (route.id === 'ListThree') {
+      return <ListThree navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -139,48 +146,52 @@ var styles = StyleSheet.create({
     paddingTop: 20,
     flex: 1,
     backgroundColor: '#EEEEEE',
-    borderWidth: 0,
+    borderWidth: 1,
     justifyContent: 'space-between'
   },
   buttonBox: {
     alignItems: 'center',
-    borderWidth: 0,
+    borderWidth: 2,
     paddingBottom: 15
   },
   restBox: {
     flex: 1,
-    borderWidth: 0,
+    borderWidth: 2,
     borderColor: 'red',
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   centerBox: {
-    borderWidth: 0,
+    borderWidth: 2,
     borderColor: 'green',
+    alignSelf: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 10
   },
-  centerHeaderBox: {
-    borderColor: 'orange',
-    borderWidth: 0,
-    alignSelf: 'flex-start',
-    alignItems: 'center',
-    paddingRight: 5
+  topBox: {
+    borderColor: 'purple',
+    borderWidth: 2,
+    marginTop: 10,
   },
   centerHeaderText: {
-    fontFamily:'AvenirNext-Regular',
-    fontSize: 20,
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: '#3d84e8' //blue
+    alignSelf: 'center'
+  },
+  image: {
+    height: 80,
+    width: 73,
+    borderWidth: 1,
+    flexDirection: 'row',
+    alignSelf: 'center'
   },
   centerMainContent:{
-    borderWidth: 0,
-    borderColor: 'blue',
-    fontFamily:'STHeitiSC-Medium',
-    fontSize: 40,
-    marginTop: -15,
-    paddingLeft: 30,
-    alignSelf: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0)',
-    color: '#E84C3D',
+    fontWeight:'bold',
+    color:'blue',
+    textAlign:'center',
+    fontSize:20,
+    alignSelf: 'center',
+    borderWidth: 3,
+    borderColor: 'brown'
   },
   button: {
     backgroundColor: 'rgba(251, 82, 45, .1)',
@@ -204,6 +215,6 @@ var styles = StyleSheet.create({
 
 });
 
-LANDING.external = true;
+DetailExample.external = true;
 
-module.exports = LANDING;
+module.exports = DetailExample;

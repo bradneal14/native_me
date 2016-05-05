@@ -11,7 +11,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var NEXTFILE = require('./NEXTFILE.js');
+var DetailExample = require('./DetailExample.js');
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -41,7 +41,7 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                HEADER
+                Text Example
               </Text>
             </View>
             <Text style={styles.centerMainContent}> Hello hello hello helllo hello
@@ -59,7 +59,7 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.props.navigator.push({ id: 'NEXTFILE' });
+              this.props.navigator.push({ id: 'DetailExample' });
             }}
             text="CONTINUE"
             style={styles.button}
@@ -78,8 +78,8 @@ var STOCK = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'NEXTFILE') {
-      return <NEXTFILE navigator={nav} />;
+    if (route.id === 'DetailExample') {
+      return <DetailExample navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -148,7 +148,8 @@ var styles = StyleSheet.create({
   },
   buttonBox: {
     alignItems: 'center',
-    borderWidth: 2
+    borderWidth: 2,
+    paddingBottom: 15
   },
   restBox: {
     flex: 1,
@@ -190,13 +191,15 @@ var styles = StyleSheet.create({
     color: '#E84C3D',
   },
   centerMainContent:{
-    fontWeight:'bold',
-    color:'blue',
-    textAlign:'center',
-    fontSize:20,
-    margin: 20,
-    alignSelf: 'center',
-    borderWidth: 1
+    borderWidth: 1,
+
+    color: '#E84C3D', //red
+    fontFamily:'AvenirNext-Regular', //Camel Case
+    fontSize: 20,
+    textAlign: 'center',
+    paddingLeft: 15,
+    paddingRight: 15,
+    flex: 1
     },
 
 });
