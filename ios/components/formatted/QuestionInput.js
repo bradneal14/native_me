@@ -38,70 +38,109 @@ class NavMenu extends React.Component {
   constructor() {
     super();
     // this.getInitialState = this.getInitialState.bind(this);
-    this.state = {word: "here"}
+    var displayData = {
+      display: "here",
+      questionOne: "",
+      questionTwo: "",
+      questionThree: ""
+    }
+    this.state = displayData
   }
   toggleState(){
-    if (this.state.word === "here"){
-      this.setState({word: "there"});
+    if (this.state.display === "here"){
+      this.setState({display: "there"});
       // var first = {myKey: "value"}
       // var myKey = "hi"
     } else {
-      this.setState({word: "here"});
+      this.setState({display: "here"});
     }
   }
   render() {
     var height = Dimensions.get('window').height;
     var width = Dimensions.get('window').width;
-    var show = this.state.word
+    var show = this.state.display
     return (
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
+
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                QUESTION INPUT
+                QUESTION INPUT 1
               </Text>
             </View>
-            <Text>{show}</Text>
+            <Text>{this.state.questionOne}</Text>
             <TextInput
-              ref = "inputt"
+              multiline = {true}
+              ref = "userInput"
               style={styles.inputBox}
-              onChangeText={(inputt) => this.setState({inputt})}>
+              onChangeText={(userInput) => this.setState({userInput})}>
             </TextInput>
           </View>
-        </View>
-        <View>
-          <NavButton
-            onPress={() => {
-              this.toggleState();
-            }}
-            text="SHOW"
-            style={styles.button}
-          />
-        </View>
-        <View>
-          <NavButton
-            onPress={() => {
-              // var storedData = AsyncStorage.getItem("key");
-              // this.setState({word: storedData});
-              AsyncStorage.getItem("key").then((value) => {
-                this.setState({word: value});
-              }).done();
-            }}
-            text="Tell"
-            style={styles.button}
-          />
+
+          <View style={styles.centerBox}>
+            <View style={styles.centerHeaderBox}>
+              <Text style={styles.centerHeaderText}>
+                QUESTION INPUT 2
+              </Text>
+            </View>
+            <Text>{this.state.questionTwo}</Text>
+            <TextInput
+              multiline = {true}
+              ref = "userInput"
+              style={styles.inputBox}
+              onChangeText={(userInput) => this.setState({userInput})}>
+            </TextInput>
+          </View>
+
+          <View style={styles.centerBox}>
+            <View style={styles.centerHeaderBox}>
+              <Text style={styles.centerHeaderText}>
+                QUESTION INPUT 3
+              </Text>
+            </View>
+            <Text>{this.state.questionThree}</Text>
+            <TextInput
+              multiline = {true}
+              ref = "userInput"
+              style={styles.inputBox}
+              onChangeText={(userInput) => this.setState({userInput})}>
+            </TextInput>
+          </View>
         </View>
 
         <View style={styles.buttonBox}>
           <NavButton
             onPress={() => {
-              var inputValue = this.state.inputt
+              var inputValue = this.state.userInput
+              if (!inputValue){
+                var inputValue = "*nada*";
+              }
               AsyncStorage.setItem("key", inputValue);
               // AsyncStorage.setItem("hello", JSON.stringify(test_object))
             }}
             text="SAVE"
+            style={styles.button}
+          />
+
+          <NavButton
+            onPress={() => {
+              // var storedData = AsyncStorage.getItem("key");
+              // this.setState({display: storedData});
+              AsyncStorage.getItem("key").then((value) => {
+                this.setState({display: value});
+              }).done();
+            }}
+            text="REVEAL"
+            style={styles.button}
+          />
+
+          <NavButton
+            onPress={() => {
+              this.toggleState();
+            }}
+            text="TOGGLE"
             style={styles.button}
           />
         </View>
@@ -189,20 +228,26 @@ var styles = StyleSheet.create({
   buttonBox: {
     alignItems: 'center',
     borderWidth: 2,
+    borderColor: 'blue',
     paddingBottom: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
   inputBox: {
     height: 40,
     borderColor: 'red',
-    borderWidth: 2,
-    margin: 30,
+    borderWidth: 0,
+    margin: 15,
+    marginTop: 5,
+    backgroundColor: 'white'
   },
   restBox: {
     flex: 1,
     borderWidth: 2,
     borderColor: 'red',
-    justifyContent: 'center',
-    // alignItems: 'stretch'
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
+
   },
   centerBox: {
     borderWidth: 2,
@@ -221,7 +266,7 @@ var styles = StyleSheet.create({
     marginTop: 20,
     height: 50,
     padding: 0,
-    width: 190,
+    width: 70,
     borderRadius: 25,
     borderWidth: 0,
     marginBottom: 20,
@@ -239,6 +284,7 @@ var styles = StyleSheet.create({
     margin: 20,
     alignSelf: 'center',
     borderWidth: 1,
+    color: 'blue'
     },
 
 });
