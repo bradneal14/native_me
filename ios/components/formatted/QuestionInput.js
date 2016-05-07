@@ -68,14 +68,15 @@ class NavMenu extends React.Component {
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
                 QUESTION INPUT 1
+                {this.state.userInput}
               </Text>
             </View>
             <Text>{this.state.questionOne}</Text>
             <TextInput
               multiline = {true}
-              ref = "userInput"
+              ref = "questionOne"
               style={styles.inputBox}
-              onChangeText={(userInput) => this.setState({userInput})}>
+              onChangeText={(questionOne) => this.setState({questionOne})}>
             </TextInput>
           </View>
 
@@ -88,9 +89,9 @@ class NavMenu extends React.Component {
             <Text>{this.state.questionTwo}</Text>
             <TextInput
               multiline = {true}
-              ref = "userInput"
+              ref = "questionTwo"
               style={styles.inputBox}
-              onChangeText={(userInput) => this.setState({userInput})}>
+              onChangeText={(questionTwo) => this.setState({questionTwo})}>
             </TextInput>
           </View>
 
@@ -103,9 +104,9 @@ class NavMenu extends React.Component {
             <Text>{this.state.questionThree}</Text>
             <TextInput
               multiline = {true}
-              ref = "userInput"
+              ref = "questionThree"
               style={styles.inputBox}
-              onChangeText={(userInput) => this.setState({userInput})}>
+              onChangeText={(questionThree) => this.setState({questionThree})}>
             </TextInput>
           </View>
         </View>
@@ -113,11 +114,24 @@ class NavMenu extends React.Component {
         <View style={styles.buttonBox}>
           <NavButton
             onPress={() => {
-              var inputValue = this.state.userInput
-              if (!inputValue){
-                var inputValue = "*nada*";
+              var questionOne = this.state.questionOne;
+              var questionTwo = this.state.quetionTwo;
+              var questionThree = this.state.questionThree;
+              if (questionOne){
+                AsyncStorage.setItem("questionOne", questionOne);
+              } else {
+                AsyncStorage.setItem("questionOne", "*nada1*");
               }
-              AsyncStorage.setItem("key", inputValue);
+              if (questionTwo){
+                AsyncStorage.setItem("questionTwo", questionTwo);
+              } else {
+                AsyncStorage.setItem("questionTwo", "*nada2*");
+              }
+              if (questionThree){
+                AsyncStorage.setItem("questionThree", questionThree);
+              } else {
+                AsyncStorage.setItem("questionThree", "*nada3*");
+              }
               // AsyncStorage.setItem("hello", JSON.stringify(test_object))
             }}
             text="SAVE"

@@ -3,11 +3,9 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var {
-  Image,
   AsyncStorage,
   View,
   Navigator,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -35,7 +33,6 @@ class PinPad extends React.Component {
     super();
     var passCode = {"pin": ""};
     this.state = passCode;
-
   }
   render() {
     return (
@@ -47,7 +44,69 @@ class PinPad extends React.Component {
           value = {1}
           text = "1"
         />
-
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
+        <NumberButton
+          onPress={() => {
+            this.setState({"pin": this.state.pin + this.props.value});
+          }}
+          value = {1}
+          text = "1"
+        />
     </View>
     );
   }
@@ -69,6 +128,14 @@ class NumberButton extends React.Component {
 }
 
 class NavMenu extends React.Component {
+  constructor() {
+    super();
+    // this.getInitialState = this.getInitialState.bind(this);
+    var pinData = {
+      pin: ""
+    }
+    this.state = pinData
+  }
   render() {
     return (
       <View style={styles.fullBack}>
@@ -77,32 +144,42 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                WELCOME TO
+                PLEASE ENTER YOUR
               </Text>
             </View>
             <Text style={styles.centerMainContent}>
-              Me.
+              Pin.
             </Text>
-
           </View>
+
         </View>
 
-        <View style={styles.buttonBox}>
-          <NavButton
-            onPress={() => {
-              AsyncStorage.setItem("tripped", "true");
-              this.props.navigator.push({ id: 'TextExample' });
-            }}
-            text="BEGIN SETUP"
-            style={styles.button}
-            />
+        <View style={styles.pinPadBox}>
+
+          <View style={styles.pinDisplayBoxOuter}>
+            <View style={styles.pinDisplayBoxInner}>
+              <Text style={styles.password}>{this.state.pin}</Text>
+            </View>
+          </View>
+
+          <PinPad/>
+
+          <View style={styles.buttonBox}>
+            <NavButton
+              onPress={() => {
+                this.props.navigator.push({ id: 'TextExample' });
+              }}
+              text="BEGIN SETUP"
+              style={styles.button}
+              />
+          </View>
         </View>
       </View>
     );
   }
 }
 
-var LANDING = React.createClass({
+var PinLogin = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -178,46 +255,58 @@ var styles = StyleSheet.create({
     borderWidth: 0,
     justifyContent: 'space-between'
   },
-  buttonBox: {
-    alignItems: 'center',
-    borderWidth: 0,
-    paddingBottom: 15
+  password: {
+    fontSize: 40,
   },
-  // numButtonBox:{
-  //   flex: 0,
-  //   borderColor: "yellow",
-  //   borderWidth: 1,
-  //   alignItems: 'center'
-  // },
+  numButtonBox: {
+    borderWidth: 2,
+    borderColor: 'purple',
+    height: 60,
+    width: 70,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  pinDisplayBoxOuter: {
+    borderWidth: 1,
+    flex: 2,
+    borderColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  pinDisplayBoxInner: {
+    borderWidth: 1,
+    borderColor: 'black',
+    justifyContent: 'center',
+  },
+  buttonBox:{
+    flex: 2,
+    borderColor: "yellow",
+    borderWidth: 3,
+    alignItems: 'center',
+    margin: 10,
+  },
   restBox: {
     flex: 1,
     borderWidth: 2,
     borderColor: 'red',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center'
   },
-  centerKeyPadBox: {
-    flex: 1,
-    borderWidth: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderColor: 'lightgreen',
-  },
-  //broader box in which pinpad is centered
   pinPadBox: {
+    flex: 5,
     borderWidth: 3,
     borderColor: 'lightblue',
+    marginLeft: 20,
+    marginRight: 20,
   },
-  //box containing the buttons
-  // keyPadBox: {
-  //   borderColor: 'green',
-  //   borderWidth: 3,
-  //   // margin: 100,
-  //   justifyContent: 'space-between',
-  //   // alignItems: 'flex-end',
-  //   flexDirection: 'column',
-  //   flexWrap: 'wrap',
-  // },
+  keyPadBox: {
+    flex: 10,
+    borderColor: 'lightgreen',
+    borderWidth: 3,
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   centerBox: {
     borderWidth: 0,
     borderColor: 'green',
@@ -226,7 +315,6 @@ var styles = StyleSheet.create({
     borderColor: 'orange',
     borderWidth: 0,
     alignSelf: 'flex-start',
-    alignItems: 'center',
     paddingRight: 5
   },
   centerHeaderText: {
@@ -248,7 +336,6 @@ var styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'rgba(251, 82, 45, .1)',
-    marginTop: 20,
     height: 50,
     padding: 0,
     width: 190,
@@ -257,16 +344,16 @@ var styles = StyleSheet.create({
     marginBottom: 20,
     borderColor: 'rgba(255,255,255,.5)',
   },
-  // NumButton: {
-  //   backgroundColor: 'rgba(151, 82, 145, .3)',
-  //   margin: 3,
-  //   height: 50,
-  //   padding: 0,
-  //   width: 50,
-  //   borderRadius: 25,
-  //   marginBottom: 5,
-  //   borderColor: 'rgba(255,255,255,.5)',
-  // },
+  NumButton: {
+    backgroundColor: 'rgba(151, 82, 145, .3)',
+    margin: 3,
+    height: 50,
+    paddingTop: 0,
+    width: 50,
+    borderRadius: 50,
+    marginBottom: 5,
+    borderColor: 'rgba(255,255,255,.5)',
+  },
   buttonText: {
     fontFamily: 'AvenirNext-Regular',
     paddingTop: 15,
@@ -278,6 +365,6 @@ var styles = StyleSheet.create({
 
 });
 
-LANDING.external = true;
+PinLogin.external = true;
 
-module.exports = LANDING;
+module.exports = PinLogin;

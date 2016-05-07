@@ -7,15 +7,37 @@
 // var Image = React.Image;
 var React = require('react-native');
 var Navigator = React.Navigator;
-var One = require('./ios/components/formatted/Landing.js');
+var {AsyncStorage} = React;
+var FirstLanding = require('./ios/components/formatted/Landing.js');
+var PinLogin = require('./ios/components/formatted/PinLogin.js');
 //four is WELCOME
 //five is list choice
 
 
 class justMe extends React.Component {
+  constructor() {
+    AsyncStorage.getItem("tripped").then((value) => {
+      if (value !== null){
+        this.setState({"tripped": value});
+      } else {
+        this.setState({tripped: "false"})
+      }
+    }).done();
+    super();
+    // this.getInitialState = this.getInitialState.bind(this);
+    var displayData = {
+      tripped: "false"
+    }
+    this.state = displayData
+  }
   render() {
+    if (this.state.tripped === "false"){
+      var entryComponent = <FirstLanding style={styles.container}/>
+    } else {
+      var entryComponent = <PinLogin style={styles.container}/>
+    }
     return (
-      <One style={styles.container}/>
+      entryComponent
     );
   }
 }

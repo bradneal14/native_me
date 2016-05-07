@@ -5,6 +5,7 @@ var ReactNative = require('react-native');
 var {
   Image,
   View,
+  AsyncStorage,
   Navigator,
   ScrollView,
   StyleSheet,
@@ -31,7 +32,23 @@ class NavButton extends React.Component {
 }
 
 class NavMenu extends React.Component {
+  constructor() {
+    super();
+    // this.getInitialState = this.getInitialState.bind(this);
+    var displayData = {
+      tripped: "false"
+    }
+    this.state = displayData
+  }
+
   render() {
+    AsyncStorage.getItem("tripped").then((value) => {
+      if (value !== null){
+        this.setState({"tripped": value});
+      } else {
+        this.setState({tripped: "false"})
+      }
+    }).done();
     var height = Dimensions.get('window').height;
     var width =Dimensions.get('window').width;
     return (
@@ -41,7 +58,7 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                Text Example
+                Text Example {this.state.tripped}
               </Text>
             </View>
             <Text style={styles.centerMainContent}> Hello hello hello helllo hello
