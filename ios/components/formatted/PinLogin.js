@@ -261,8 +261,8 @@ var styles = StyleSheet.create({
   numButtonBox: {
     borderWidth: 2,
     borderColor: 'purple',
-    height: 60,
-    width: 70,
+    height: 67,
+    width: 85,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -271,7 +271,8 @@ var styles = StyleSheet.create({
     flex: 2,
     borderColor: 'black',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: 100
   },
   pinDisplayBoxInner: {
     borderWidth: 1,
@@ -279,11 +280,11 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonBox:{
-    flex: 2,
+    flex: 4,
     borderColor: "yellow",
     borderWidth: 3,
     alignItems: 'center',
-    margin: 10,
+    margin: 5,
   },
   restBox: {
     flex: 1,
@@ -298,14 +299,16 @@ var styles = StyleSheet.create({
     borderColor: 'lightblue',
     marginLeft: 20,
     marginRight: 20,
+    alignItems: 'center'
   },
   keyPadBox: {
-    flex: 10,
     borderColor: 'lightgreen',
     borderWidth: 3,
     justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    width: 274,
+    height: 274
   },
   centerBox: {
     borderWidth: 0,
