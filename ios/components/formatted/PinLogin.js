@@ -29,6 +29,24 @@ class NavButton extends React.Component {
     );
   }
 }
+
+
+class NumberButton extends React.Component {
+  render() {
+    return (
+      <View style={styles.numButtonBox}>
+        <TouchableHighlight
+          style={styles.NumButton}
+          underlayColor='rgba(151, 10, 45, .2)'
+          onPress={this.props.whenTouched}>
+          <Text style={styles.buttonText}>{this.props.text}</Text>
+        </TouchableHighlight>
+      </View>
+    );
+  }
+}
+
+
 class PinPad extends React.Component {
   constructor(){
     super();
@@ -42,72 +60,52 @@ class PinPad extends React.Component {
     return (
       <View style={styles.keyPadBox}>
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onOne}
           value = {1}
           text = "1"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onTwo}
           value = {2}
           text = "2"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onThree}
           value = {3}
           text = "3"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onFour}
           value = {4}
           text = "4"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onFive}
           value = {5}
           text = "5"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onSix}
           value = {6}
           text = "6"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onSeven}
           value = {7}
           text = "7"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onEight}
           value = {8}
           text = "8"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onNine}
           value = {9}
           text = "9"
         />
         <NumberButton
-          onPress={() => {
-            this.setState({"pin": this.state.pin + this.props.value});
-          }}
+          whenTouched={this.props.onZero}
           value = {0}
           text = "0"
         />
@@ -116,20 +114,6 @@ class PinPad extends React.Component {
   }
 }
 
-class NumberButton extends React.Component {
-  render() {
-    return (
-      <View style={styles.numButtonBox}>
-        <TouchableHighlight
-          style={styles.NumButton}
-          underlayColor='rgba(151, 10, 45, .2)'
-          onPress={this.props.onPress}>
-          <Text style={styles.buttonText}>{this.props.text}</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  }
-}
 
 class NavMenu extends React.Component {
   render() {
@@ -159,13 +143,22 @@ class NavMenu extends React.Component {
             </View>
           </View>
 
-          <PinPad/>
+          <PinPad
+            onOne={this.props.addOne}
+            onTwo={this.props.addTwo}
+            onThree={this.props.addThree}
+            onFour={this.props.addFour}
+            onFive={this.props.addFive}
+            onSix={this.props.addSix}
+            onSeven={this.props.addSeven}
+            onEight={this.props.addEight}
+            onNine={this.props.addNine}
+            onZero={this.props.addZero}
+            />
 
           <View style={styles.buttonBox}>
             <NavButton
-              onPress={() => {
-                this.props.navigator.push({ id: 'TextExample' });
-              }}
+              onPress={this.props.continue}
               text="LOGIN"
               style={styles.button}
               />
@@ -182,21 +175,65 @@ var PinLogin = React.createClass({
     title: '<Navigator>',
     description: 'JS-implemented navigation',
   },
-
+  componentDidMount: function(){
+    this.setState({savedPin: "1014"})
+  },
+  getInitialState: function(){
+    return({display: "", pin: ""});
+  },
+  addNumber: function(num, nav){
+    if (this.state.pin.length < 4) {
+      var newPin = this.state.pin + num
+      this.setState({pin: newPin });
+    }
+    if (this.state.pin === this.state.savedPin){
+      nav.push({ id: 'TextExample'})
+    }
+  },
+  continue: function(nav){
+    if (this.state.pin === "NAH"){
+      this.setState({pin: ""});
+    } else if (this.state.pin === this.state.savedPin){
+      nav.push({ id: 'TextExample'})
+    } else {
+      this.setState({pin: "NAH"})
+    }
+  },
   renderScene: function(route, nav) {
     if (route.id === 'TextExample') {
       return <TextExample navigator={nav} />;
     } else {
       return (
         <NavMenu
-          pin={""}
-          message={route.message}
+          pin={this.state.pin}
           navigator={nav}
-          onExampleExit={this.props.onExampleExit}
+          continue={() => {
+            this.continue(nav)}}
+          addOne={() => {
+            this.addNumber(1, nav) }}
+          addTwo={() => {
+            this.addNumber(2, nav) }}
+          addThree={() => {
+            this.addNumber(3, nav) }}
+          addFour={() => {
+            this.addNumber(4, nav) }}
+          addFive={() => {
+            this.addNumber(5, nav) }}
+          addSix={() => {
+            this.addNumber(6, nav) }}
+          addSeven={() => {
+            this.addNumber(7, nav) }}
+          addEight={() => {
+            this.addNumber(8, nav) }}
+          addNine={() => {
+            this.addNumber(9, nav) }}
+          addZero={() => {
+            this.addNumber(0, nav) }}
         />
       );
     }
   },
+
 
   render: function() {
     return (
@@ -214,9 +251,9 @@ var PinLogin = React.createClass({
       />
     );
   },
-  componentDidMount: function(){
-    this.setState({pin: 1234});
-  },
+  // componentDidMount: function(){
+  //   this.setState({"pin": 1212});
+  // },
   componentWillUnmount: function() {
     this._listeners && this._listeners.forEach(listener => listener.remove());
   },
@@ -259,7 +296,7 @@ var styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   password: {
-    fontSize: 20,
+    fontSize: 15,
   },
   numButtonBox: {
     borderWidth: 2,
@@ -278,7 +315,7 @@ var styles = StyleSheet.create({
     width: 100
   },
   pinDisplayBoxInner: {
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: 'black',
     justifyContent: 'center',
   },
