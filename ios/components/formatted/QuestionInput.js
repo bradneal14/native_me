@@ -55,6 +55,12 @@ class NavMenu extends React.Component {
       this.setState({display: "here"});
     }
   }
+  testing(){
+    console.log("the test is performed without my command");
+  }
+  clearAsync(){
+    AsyncStorage.clear();
+  }
   render() {
     var height = Dimensions.get('window').height;
     var width = Dimensions.get('window').width;
@@ -155,6 +161,14 @@ class NavMenu extends React.Component {
               this.toggleState();
             }}
             text="TOGGLE"
+            style={styles.button}
+          />
+
+          <NavButton
+            onPress={() => {
+              this.clearAsync();
+            }}
+            text="X Async"
             style={styles.button}
           />
         </View>

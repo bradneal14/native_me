@@ -13,6 +13,7 @@ var {
 var TextExample = require('./TextExample.js');
 
 import Dimensions from 'Dimensions';
+
 // var Device = require('react-native-device');
 
   // underlayColor="#B5B5B5"
@@ -31,8 +32,11 @@ class NavButton extends React.Component {
 class PinPad extends React.Component {
   constructor(){
     super();
-    var passCode = {"pin": ""};
+    var passCode = {"pin": 2222};
     this.state = passCode;
+  }
+  something(){
+    console.log("something is happening");
   }
   render() {
     return (
@@ -48,64 +52,64 @@ class PinPad extends React.Component {
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {2}
+          text = "2"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {3}
+          text = "3"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {4}
+          text = "4"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {5}
+          text = "5"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {6}
+          text = "6"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {7}
+          text = "7"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {8}
+          text = "8"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {9}
+          text = "9"
         />
         <NumberButton
           onPress={() => {
             this.setState({"pin": this.state.pin + this.props.value});
           }}
-          value = {1}
-          text = "1"
+          value = {0}
+          text = "0"
         />
     </View>
     );
@@ -128,15 +132,8 @@ class NumberButton extends React.Component {
 }
 
 class NavMenu extends React.Component {
-  constructor() {
-    super();
-    // this.getInitialState = this.getInitialState.bind(this);
-    var pinData = {
-      pin: ""
-    }
-    this.state = pinData
-  }
   render() {
+    var pin = this.props.pin;
     return (
       <View style={styles.fullBack}>
 
@@ -158,7 +155,7 @@ class NavMenu extends React.Component {
 
           <View style={styles.pinDisplayBoxOuter}>
             <View style={styles.pinDisplayBoxInner}>
-              <Text style={styles.password}>{this.state.pin}</Text>
+              <Text style={styles.password}>{pin}</Text>
             </View>
           </View>
 
@@ -169,7 +166,7 @@ class NavMenu extends React.Component {
               onPress={() => {
                 this.props.navigator.push({ id: 'TextExample' });
               }}
-              text="BEGIN SETUP"
+              text="LOGIN"
               style={styles.button}
               />
           </View>
@@ -192,6 +189,7 @@ var PinLogin = React.createClass({
     } else {
       return (
         <NavMenu
+          pin={""}
           message={route.message}
           navigator={nav}
           onExampleExit={this.props.onExampleExit}
@@ -205,7 +203,7 @@ var PinLogin = React.createClass({
       <Navigator
         ref={this._setNavigatorRef}
         style={styles.container}
-        initialRoute={{ message: 'Message in nine render', }}
+        initialRoute={{ message: 'Message in pin render', }}
         renderScene={this.renderScene}
         configureScene={(route) => {
           if (route.sceneConfig) {
@@ -216,8 +214,9 @@ var PinLogin = React.createClass({
       />
     );
   },
-
-
+  componentDidMount: function(){
+    this.setState({pin: 1234});
+  },
   componentWillUnmount: function() {
     this._listeners && this._listeners.forEach(listener => listener.remove());
   },
@@ -247,6 +246,10 @@ var PinLogin = React.createClass({
   },
 });
 
+
+var buttonBoxHeight = (Dimensions.get("window").height) / 7;
+var buttonBoxWidth = (buttonBoxHeight * 1);
+var buttonRadius = (Dimensions.get("window").height) / 10;
 var styles = StyleSheet.create({
   fullBack: {
     paddingTop: 20,
@@ -256,19 +259,19 @@ var styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   password: {
-    fontSize: 40,
+    fontSize: 20,
   },
   numButtonBox: {
     borderWidth: 2,
     borderColor: 'purple',
-    height: 67,
-    width: 85,
+    height: buttonBoxHeight,
+    width: buttonBoxWidth,
     alignItems: 'center',
     justifyContent: 'center'
   },
   pinDisplayBoxOuter: {
     borderWidth: 1,
-    flex: 2,
+    flex: .3,
     borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
@@ -280,11 +283,14 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonBox:{
-    flex: 4,
+    flex: 1,
     borderColor: "yellow",
     borderWidth: 3,
     alignItems: 'center',
+    justifyContent: 'flex-end',
+    flexDirection: 'column',
     margin: 5,
+    flexDirection: 'row'
   },
   restBox: {
     flex: 1,
@@ -302,13 +308,13 @@ var styles = StyleSheet.create({
     alignItems: 'center'
   },
   keyPadBox: {
+    flex:4,
     borderColor: 'lightgreen',
     borderWidth: 3,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: 274,
-    height: 274
+    alignSelf: 'stretch',
   },
   centerBox: {
     borderWidth: 0,
@@ -346,20 +352,23 @@ var styles = StyleSheet.create({
     borderWidth: 0,
     marginBottom: 20,
     borderColor: 'rgba(255,255,255,.5)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   NumButton: {
     backgroundColor: 'rgba(151, 82, 145, .3)',
-    margin: 3,
-    height: 50,
+    margin: 0,
+    height: buttonRadius,
     paddingTop: 0,
-    width: 50,
-    borderRadius: 50,
+    width: buttonRadius,
+    borderRadius: buttonRadius,
     marginBottom: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderColor: 'rgba(255,255,255,.5)',
   },
   buttonText: {
     fontFamily: 'AvenirNext-Regular',
-    paddingTop: 15,
     fontSize: 15,
     fontWeight: '500',
     alignSelf: 'center',

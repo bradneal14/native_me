@@ -24,11 +24,14 @@ class justMe extends React.Component {
       }
     }).done();
     super();
-    // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
       tripped: "false"
     }
-    this.state = displayData
+    this.state = displayData;
+    var testing = function(){
+      console.log("here")
+    }
+    testing.bind(this);
   }
   render() {
     if (this.state.tripped === "false"){
@@ -52,10 +55,10 @@ const styles = React.StyleSheet.create({
 React.AppRegistry.registerComponent('justMe', () => justMe);
 
 // return (
-//   <React.NavigatorIOS
-//       style={styles.container}
-//       initialRoute={{
-//         title: 'Home',
-//         component: Landing,
-//       }}/>
+  // <React.NavigatorIOS
+  //     style={styles.container}
+  //     initialRoute={{
+  //       title: 'Home',
+  //       component: Landing,
+  //     }}/>
 // );

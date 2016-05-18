@@ -35,7 +35,6 @@ class PinPad extends React.Component {
     super();
     var passCode = {"pin": ""};
     this.state = passCode;
-
   }
   render() {
     return (
@@ -169,6 +168,7 @@ var LANDING = React.createClass({
     }
   },
 });
+
 
 var styles = StyleSheet.create({
   fullBack: {
