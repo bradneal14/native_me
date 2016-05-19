@@ -184,7 +184,7 @@ var PinLogin = React.createClass({
   addNumber: function(num, nav){
     if (this.state.pin.length < 4) {
       var newPin = this.state.pin + num
-      this.setState({pin: newPin });
+      this.setState({pin: newPin});
     }
     if (this.state.pin === this.state.savedPin){
       nav.push({ id: 'TextExample'})
