@@ -10,7 +10,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var TextExample = require('./TextExample.js');
+var AddTick = require('./QuestionInput.js');
 
 import Dimensions from 'Dimensions';
 
@@ -187,21 +187,21 @@ var PinLogin = React.createClass({
       this.setState({pin: newPin});
     }
     if (this.state.pin === this.state.savedPin){
-      nav.push({ id: 'TextExample'})
+      nav.push({ id: 'AddTick'})
     }
   },
   continue: function(nav){
     if (this.state.pin === "NAH"){
       this.setState({pin: ""});
     } else if (this.state.pin === this.state.savedPin){
-      nav.push({ id: 'TextExample'})
+      nav.push({ id: 'AddTick'})
     } else {
       this.setState({pin: "NAH"})
     }
   },
   renderScene: function(route, nav) {
-    if (route.id === 'TextExample') {
-      return <TextExample navigator={nav} />;
+    if (route.id === 'AddTick') {
+      return <AddTick navigator={nav} />;
     } else {
       return (
         <NavMenu
