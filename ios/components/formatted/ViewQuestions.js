@@ -40,10 +40,9 @@ class NavMenu extends React.Component {
     // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
       display: "here",
-      newTick: "",
-      mostRecent: "",
-      questionThree: "",
-      date: 0
+      questionOne: "",
+      questionTwo: "",
+      questionThree: ""
     }
     this.state = displayData
   }
@@ -65,10 +64,9 @@ class NavMenu extends React.Component {
   render() {
     var height = Dimensions.get('window').height;
     var width = Dimensions.get('window').width;
-    var show = this.state.display
-    var date =  this.state.date
-    var recent = this.state.date - 1
-    var display = this.state.display
+    var displayOne = this.state.questionOne
+    var displayTwo = this.state.questionTwo
+    var displayThree = this.state.questionThree
     return (
       <View style={styles.fullBack}>
 
@@ -77,16 +75,29 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                ADD TICK
+                Q-1
               </Text>
-              <Text>{date}</Text>
-              <Text>{display}</Text>
+              <Text>{displayOne}</Text>
             </View>
-            <TextInput
-              ref = "newTick"
-              style={styles.inputBox}
-              onChangeText={(newTick) => this.setState({newTick})}>
-            </TextInput>
+
+          </View>
+          <View style={styles.centerBox}>
+            <View style={styles.centerHeaderBox}>
+              <Text style={styles.centerHeaderText}>
+                Q-2
+              </Text>
+              <Text>{displayTwo}</Text>
+            </View>
+
+          </View>
+          <View style={styles.centerBox}>
+            <View style={styles.centerHeaderBox}>
+              <Text style={styles.centerHeaderText}>
+                Q-3
+              </Text>
+              <Text>{displayThree}</Text>
+            </View>
+
           </View>
 
 
@@ -111,8 +122,14 @@ class NavMenu extends React.Component {
             onPress={() => {
               // var storedData = AsyncStorage.getItem("key");
               // this.setState({display: storedData});
-              AsyncStorage.getItem("date").then((value) => {
-                this.setState({mostRecent: value});
+              AsyncStorage.getItem("questionOne").then((value) => {
+                this.setState({questionOne: value});
+              }).done();
+              AsyncStorage.getItem("questionTwo").then((value) => {
+                this.setState({questionTwo: value});
+              }).done();
+              AsyncStorage.getItem("questionThree").then((value) => {
+                this.setState({questionThree: value});
               }).done();
             }}
             text="REVEAL"
@@ -141,7 +158,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var AddTick = React.createClass({
+var ViewQuestions = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -281,6 +298,6 @@ var styles = StyleSheet.create({
 
 });
 
-AddTick.external = true;
+ViewQuestions.external = true;
 
-module.exports = AddTick;
+module.exports = ViewQuestions;

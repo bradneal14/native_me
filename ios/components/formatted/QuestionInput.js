@@ -14,6 +14,7 @@ var {
   TouchableHighlight,
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
+var ViewQuestions = require('./ViewQuestions')
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -55,6 +56,9 @@ class NavMenu extends React.Component {
       this.setState({display: "here"});
     }
   }
+  nextPage(){
+    this.props.navigator.push({ id: 'ViewQuestions' });
+  }
   testing(){
     console.log("the test is performed without my command");
   }
@@ -85,7 +89,7 @@ class NavMenu extends React.Component {
               onChangeText={(questionOne) => this.setState({questionOne})}>
             </TextInput>
           </View>
-
+          <Text>{show}</Text>
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
@@ -121,19 +125,19 @@ class NavMenu extends React.Component {
           <NavButton
             onPress={() => {
               var questionOne = this.state.questionOne;
-              var questionTwo = this.state.quetionTwo;
+              var questionTwo = this.state.questionTwo;
               var questionThree = this.state.questionThree;
-              if (questionOne){
+              if (questionOne !== ""){
                 AsyncStorage.setItem("questionOne", questionOne);
               } else {
                 AsyncStorage.setItem("questionOne", "*nada1*");
               }
-              if (questionTwo){
+              if (questionTwo  !== ""){
                 AsyncStorage.setItem("questionTwo", questionTwo);
               } else {
                 AsyncStorage.setItem("questionTwo", "*nada2*");
               }
-              if (questionThree){
+              if (questionThree  !== ""){
                 AsyncStorage.setItem("questionThree", questionThree);
               } else {
                 AsyncStorage.setItem("questionThree", "*nada3*");
@@ -148,7 +152,7 @@ class NavMenu extends React.Component {
             onPress={() => {
               // var storedData = AsyncStorage.getItem("key");
               // this.setState({display: storedData});
-              AsyncStorage.getItem("key").then((value) => {
+              AsyncStorage.getItem("questionOne").then((value) => {
                 this.setState({display: value});
               }).done();
             }}
@@ -171,6 +175,15 @@ class NavMenu extends React.Component {
             text="X Async"
             style={styles.button}
           />
+
+          <NavButton
+            onPress={() => {
+              this.nextPage();
+            }}
+            text="NEXT"
+            style={styles.button}
+          />
+
         </View>
       </View>
     );
@@ -185,8 +198,8 @@ var QuestionInput = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'NEXTFILEE') {
-      return <NEXTFILE navigator={nav} />;
+    if (route.id === 'ViewQuestions') {
+      return <ViewQuestions navigator={nav} />;
     } else {
       return (
         <NavMenu
