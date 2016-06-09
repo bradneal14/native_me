@@ -14,7 +14,6 @@ var {
   TouchableHighlight,
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
-var MainDashboard = require('./MainDashboard');
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -75,7 +74,7 @@ class NavMenu extends React.Component {
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
-          <Text>This is a page to view saved questions</Text>
+          <Text>This is the main dashboard</Text>
 
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
@@ -163,7 +162,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var ViewQuestions = React.createClass({
+var MainDashboard = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -303,6 +302,6 @@ var styles = StyleSheet.create({
 
 });
 
-ViewQuestions.external = true;
+MainDashboard.external = true;
 
-module.exports = ViewQuestions;
+module.exports = MainDashboard;
