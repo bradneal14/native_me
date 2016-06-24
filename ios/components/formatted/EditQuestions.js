@@ -14,9 +14,9 @@ var {
   TouchableHighlight,
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
-var ViewQuestions = require('./ViewQuestions')
-var EditQuestions = require('./EditQuestions')
-var MainDashboard = require('./MainDashboard')
+
+var ViewQuestions = require('./ViewQuestions.js')
+var MainDashboard = require('./MainDashboard.js')
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -60,13 +60,10 @@ class NavMenu extends React.Component {
     }
   }
   goToView(){
-    this.props.navigator.push({ id: 'ViewQuestions' });
-  }
-  goToEdit(){
-    this.props.navigator.push({ id: 'EditQuestions' });
+    this.props.navigator.push({id: 'ViewQuestions' });
   }
   goToDash(){
-    this.props.navigator.push({ id: 'MainDashboard'})
+    this.props.navigator.push({id: 'MainDashboard' });
   }
   testing(){
     console.log("the test is performed without my command");
@@ -86,7 +83,7 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 1
+                EDIT QUESTIONS MOFO
                 {this.state.userInput}
               </Text>
             </View>
@@ -171,6 +168,14 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
+              this.toggleState();
+            }}
+            text="TOGGLE"
+            style={styles.button}
+          />
+
+          <NavButton
+            onPress={() => {
               this.goToDash();
             }}
             text="DASH"
@@ -179,17 +184,9 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.goToEdit();
-            }}
-            text="EDIT Q"
-            style={styles.button}
-          />
-
-          <NavButton
-            onPress={() => {
               this.goToView();
             }}
-            text="View"
+            text="VIEW"
             style={styles.button}
           />
 
@@ -199,7 +196,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var QuestionInput = React.createClass({
+var EditQuestions = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -209,12 +206,9 @@ var QuestionInput = React.createClass({
   renderScene: function(route, nav) {
     if (route.id === 'ViewQuestions') {
       return <ViewQuestions navigator={nav} />;
-    } else if (route.id === "EditQuestions"){
-      return <EditQuestions navigator={nav} />;
-    } else if (route.id === 'MainDashboard'){
+    } else if (route.id === "MainDashboard"){
       return <MainDashboard navigator={nav} />;
-    }
-    else {
+    } else {
       return (
         <NavMenu
           message={route.message}
@@ -344,6 +338,6 @@ var styles = StyleSheet.create({
 
 });
 
-QuestionInput.external = true;
+EditQuestions.external = true;
 
-module.exports = QuestionInput;
+module.exports = EditQuestions;

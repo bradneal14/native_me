@@ -14,9 +14,7 @@ var {
   TouchableHighlight,
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
-var ViewQuestions = require('./ViewQuestions')
-var EditQuestions = require('./EditQuestions')
-var MainDashboard = require('./MainDashboard')
+var MainDashboard = require('./MainDashboard');
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -40,16 +38,43 @@ let test_object = "sample test object";
 class NavMenu extends React.Component {
   constructor() {
     super();
-
-    // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
       display: "here",
-      questionOne: "",
-      questionTwo: "",
-      questionThree: ""
-    }
+      questionOne: firstQuestion,
+      questionTwo: secondQuestion,
+      questionThree: thirdQuestion,
+      answerOne: "",
+      answerTwo: "",
+      answerThree: "",
+      numberOfQuestions: 3
+    };
     this.state = displayData
+
+    var firstQuestion = AsyncStorage.getItem("questionOne").then((value) => {
+      this.setState({questionOne: value});
+    }).done();
+    var secondQuestion = AsyncStorage.getItem("questionTwo").then((value) => {
+      this.setState({questionTwo: value});
+    }).done();
+    var thirdQuestion = AsyncStorage.getItem("questionThree").then((value) => {
+      this.setState({questionThree: value});
+    }).done();
+
+    var firstAnswer = AsyncStorage.getItem("Answer1").then((value) => {
+      this.setState({answerOne: value});
+    }).done();
+    var secondAnswer = AsyncStorage.getItem("Answer2").then((value) => {
+      this.setState({answerTwo: value});
+    }).done();
+    var thirdAnswer = AsyncStorage.getItem("Answer3").then((value) => {
+      this.setState({answerThree: value});
+    }).done();
+
+
+    // this.getInitialState = this.getInitialState.bind(this);
+
   }
+
   toggleState(){
     if (this.state.display === "here"){
       this.setState({display: "there"});
@@ -59,97 +84,72 @@ class NavMenu extends React.Component {
       this.setState({display: "here"});
     }
   }
-  goToView(){
-    this.props.navigator.push({ id: 'ViewQuestions' });
-  }
-  goToEdit(){
-    this.props.navigator.push({ id: 'EditQuestions' });
-  }
-  goToDash(){
-    this.props.navigator.push({ id: 'MainDashboard'})
-  }
   testing(){
     console.log("the test is performed without my command");
   }
   clearAsync(){
     AsyncStorage.clear();
   }
+  nextPage(){
+    this.props.navigator.push({ id: 'MainDashboard' });
+  }
   render() {
     var height = Dimensions.get('window').height;
     var width = Dimensions.get('window').width;
-    var show = this.state.display
+    var displayQuestionOne = this.state.questionOne
+    var displayQuestionTwo = this.state.questionTwo
+    var displayQuestionThree = this.state.questionThree
+    var displayAnswerOne = this.state.answerOne
+    var displayAnswerTwo = this.state.answerTwo
+    var displayAnswerThree = this.state.answerThree
     return (
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
+          <Text>RESULTS</Text>
 
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 1
-                {this.state.userInput}
+                Q-1
               </Text>
+              <Text>{displayQuestionOne}</Text>
+              <Text>{displayAnswerOne}</Text>
             </View>
-            <Text>{this.state.questionOne}</Text>
-            <TextInput
-              multiline = {true}
-              ref = "questionOne"
-              style={styles.inputBox}
-              onChangeText={(questionOne) => this.setState({questionOne})}>
-            </TextInput>
+
           </View>
-          <Text>{show}</Text>
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 2
+                Q-2
               </Text>
+              <Text>{displayQuestionTwo}</Text>
+              <Text>{displayAnswerTwo}</Text>
             </View>
-            <Text>{this.state.questionTwo}</Text>
-            <TextInput
-              multiline = {true}
-              ref = "questionTwo"
-              style={styles.inputBox}
-              onChangeText={(questionTwo) => this.setState({questionTwo})}>
-            </TextInput>
+
+          </View>
+          <View style={styles.centerBox}>
+            <View style={styles.centerHeaderBox}>
+              <Text style={styles.centerHeaderText}>
+                Q-3
+              </Text>
+              <Text>{displayQuestionThree}</Text>
+              <Text>{displayAnswerThree}</Text>
+            </View>
+
           </View>
 
-          <View style={styles.centerBox}>
-            <View style={styles.centerHeaderBox}>
-              <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 3
-              </Text>
-            </View>
-            <Text>{this.state.questionThree}</Text>
-            <TextInput
-              multiline = {true}
-              ref = "questionThree"
-              style={styles.inputBox}
-              onChangeText={(questionThree) => this.setState({questionThree})}>
-            </TextInput>
-          </View>
+
         </View>
 
         <View style={styles.buttonBox}>
           <NavButton
             onPress={() => {
-              var questionOne = this.state.questionOne;
-              var questionTwo = this.state.questionTwo;
-              var questionThree = this.state.questionThree;
-              if (questionOne !== ""){
-                AsyncStorage.setItem("questionOne", questionOne);
-              } else {
-                AsyncStorage.setItem("questionOne", "*nada1*");
-              }
-              if (questionTwo  !== ""){
-                AsyncStorage.setItem("questionTwo", questionTwo);
-              } else {
-                AsyncStorage.setItem("questionTwo", "*nada2*");
-              }
-              if (questionThree  !== ""){
-                AsyncStorage.setItem("questionThree", questionThree);
-              } else {
-                AsyncStorage.setItem("questionThree", "*nada3*");
+              if (this.state.newTick !== ""){
+                AsyncStorage.setItem("date", this.state.newTick);
+                this.setState({"date": this.state.date + 1});
+                this.setState({"newTick": ""})
+                //NEED TO CLEAR INPUT FIELD
               }
               // AsyncStorage.setItem("hello", JSON.stringify(test_object))
             }}
@@ -162,7 +162,13 @@ class NavMenu extends React.Component {
               // var storedData = AsyncStorage.getItem("key");
               // this.setState({display: storedData});
               AsyncStorage.getItem("questionOne").then((value) => {
-                this.setState({display: value});
+                this.setState({questionOne: value});
+              }).done();
+              AsyncStorage.getItem("questionTwo").then((value) => {
+                this.setState({questionTwo: value});
+              }).done();
+              AsyncStorage.getItem("questionThree").then((value) => {
+                this.setState({questionThree: value});
               }).done();
             }}
             text="REVEAL"
@@ -171,35 +177,27 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.goToDash();
+              this.clearAsync();
             }}
-            text="DASH"
+            text="X Async"
             style={styles.button}
           />
 
           <NavButton
             onPress={() => {
-              this.goToEdit();
+              this.nextPage();
             }}
-            text="EDIT Q"
+            text="NEXT"
             style={styles.button}
           />
-
-          <NavButton
-            onPress={() => {
-              this.goToView();
-            }}
-            text="View"
-            style={styles.button}
-          />
-
         </View>
+
       </View>
     );
   }
 }
 
-var QuestionInput = React.createClass({
+var Results = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -207,14 +205,9 @@ var QuestionInput = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'ViewQuestions') {
-      return <ViewQuestions navigator={nav} />;
-    } else if (route.id === "EditQuestions"){
-      return <EditQuestions navigator={nav} />;
-    } else if (route.id === 'MainDashboard'){
+    if (route.id === 'MainDashboard') {
       return <MainDashboard navigator={nav} />;
-    }
-    else {
+    } else {
       return (
         <NavMenu
           message={route.message}
@@ -344,6 +337,6 @@ var styles = StyleSheet.create({
 
 });
 
-QuestionInput.external = true;
+Results.external = true;
 
-module.exports = QuestionInput;
+module.exports = Results;

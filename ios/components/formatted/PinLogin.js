@@ -176,7 +176,7 @@ var PinLogin = React.createClass({
     description: 'JS-implemented navigation',
   },
   componentDidMount: function(){
-    this.setState({savedPin: "1014"})
+    this.setState({savedPin: "1111"})
   },
   getInitialState: function(){
     return({display: "", pin: ""});

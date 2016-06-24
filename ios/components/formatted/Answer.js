@@ -17,6 +17,7 @@ var NEXTFILE = require('./NEXTFILE.js');
 var ViewQuestions = require('./ViewQuestions')
 var EditQuestions = require('./EditQuestions')
 var MainDashboard = require('./MainDashboard')
+var Results = require('./Results')
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -35,18 +36,40 @@ class NavButton extends React.Component {
   }
 }
 
-let test_object = "sample test object";
+class ChoiceButton extends React.Component {
+  render() {
+    return (
+      <TouchableHighlight
+        style={styles.choiceButton}
+        underlayColor='rgba(251, 182, 45, .0)'
+        onPress={this.props.onPress}>
+        <Text style={styles.choiceButtonText}>{this.props.text}</Text>
+      </TouchableHighlight>
+    );
+  }
+}
 
 class NavMenu extends React.Component {
   constructor() {
     super();
+    var firstQuestion = AsyncStorage.getItem("questionOne").then((value) => {
+      this.setState({questionOne: value});
+    }).done();
+    var secondQuestion = AsyncStorage.getItem("questionTwo").then((value) => {
+      this.setState({questionTwo: value});
+    }).done();
+    var thirdQuestion = AsyncStorage.getItem("questionThree").then((value) => {
+      this.setState({questionThree: value});
+    }).done();
 
     // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
-      display: "here",
-      questionOne: "",
-      questionTwo: "",
-      questionThree: ""
+      display: "test",
+      questionOne: firstQuestion,
+      questionTwo: secondQuestion,
+      questionThree: thirdQuestion,
+      currentQuestion: 1,
+      numberOfQuestions: 3
     }
     this.state = displayData
   }
@@ -59,25 +82,103 @@ class NavMenu extends React.Component {
       this.setState({display: "here"});
     }
   }
-  goToView(){
-    this.props.navigator.push({ id: 'ViewQuestions' });
+  showNext(){
+    switch (this.state.currentQuestion){
+      case 1:
+        this.showOne();
+        this.setState({currentQuestion: this.state.currentQuestion + 1});
+        break;
+      case 2:
+        this.showTwo();
+        this.setState({currentQuestion: this.state.currentQuestion + 1});
+        break;
+      case 3:
+        this.showThree();
+        this.setState({currentQuestion: this.state.currentQuestion + 1});
+        break;
+    }
   }
-  goToEdit(){
-    this.props.navigator.push({ id: 'EditQuestions' });
+  goToResults(){
+    this.props.navigator.push({ id: 'Results' });
   }
-  goToDash(){
-    this.props.navigator.push({ id: 'MainDashboard'})
+  showOne(){
+    this.setState({display: this.state.questionOne});
   }
-  testing(){
-    console.log("the test is performed without my command");
+  showTwo(){
+    this.setState({display: this.state.questionTwo});
+  }
+  showThree(){
+    this.setState({display: this.state.questionThree});
   }
   clearAsync(){
     AsyncStorage.clear();
   }
+  tallyNo(){
+    var currentQuestion = this.state.currentQuestion
+    var storeAs = "Answer" + currentQuestion.toString();
+    AsyncStorage.setItem(storeAs, "No");
+  }
+  tallyYes(){
+    var currentQuestion = this.state.currentQuestion
+    var storeAs = "Answer" + currentQuestion.toString();
+    AsyncStorage.setItem(storeAs, "Yes");
+  }
   render() {
     var height = Dimensions.get('window').height;
     var width = Dimensions.get('window').width;
-    var show = this.state.display
+    var display = this.state.display
+
+    if (this.state.currentQuestion === 1){
+      var bothChoiceButtons =
+        <View style={styles.choiceButtonBox}>
+        </View>;
+      var nextButton =
+        <NavButton
+          onPress={() => {
+            this.showNext();
+          }}
+          text="Begin"
+          style={styles.button}
+          />
+    } else {
+      if (this.state.currentQuestion <= this.state.numberOfQuestions){
+        var nextButton =
+        <NavButton
+          onPress={() => {
+            this.showNext();
+          }}
+          text="Next"
+          style={styles.button}
+          />
+      } else {
+        var nextButton =
+        <NavButton
+          onPress={() => {
+            this.goToResults();
+          }}
+          text="Results"
+          style={styles.button}
+          />
+      }
+      var bothChoiceButtons =
+        <View style={styles.choiceButtonBox}>
+          <ChoiceButton
+            onPress={() => {
+              this.tallyNo();
+            }}
+            text="No"
+            style={styles.choiceButton}
+            />
+          <ChoiceButton
+            onPress={() => {
+              this.tallyYes();
+            }}
+            text="Yes"
+            style={styles.choiceButton}
+            />
+        </View>
+    }
+
     return (
       <View style={styles.fullBack}>
 
@@ -86,112 +187,28 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 1
+                <Text>{display}</Text>
                 {this.state.userInput}
               </Text>
             </View>
-            <Text>{this.state.questionOne}</Text>
-            <TextInput
-              multiline = {true}
-              ref = "questionOne"
-              style={styles.inputBox}
-              onChangeText={(questionOne) => this.setState({questionOne})}>
-            </TextInput>
-          </View>
-          <Text>{show}</Text>
-          <View style={styles.centerBox}>
-            <View style={styles.centerHeaderBox}>
-              <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 2
-              </Text>
-            </View>
-            <Text>{this.state.questionTwo}</Text>
-            <TextInput
-              multiline = {true}
-              ref = "questionTwo"
-              style={styles.inputBox}
-              onChangeText={(questionTwo) => this.setState({questionTwo})}>
-            </TextInput>
-          </View>
 
-          <View style={styles.centerBox}>
-            <View style={styles.centerHeaderBox}>
-              <Text style={styles.centerHeaderText}>
-                QUESTION INPUT 3
-              </Text>
-            </View>
-            <Text>{this.state.questionThree}</Text>
-            <TextInput
-              multiline = {true}
-              ref = "questionThree"
-              style={styles.inputBox}
-              onChangeText={(questionThree) => this.setState({questionThree})}>
-            </TextInput>
           </View>
+          {bothChoiceButtons}
+
+
         </View>
 
         <View style={styles.buttonBox}>
-          <NavButton
-            onPress={() => {
-              var questionOne = this.state.questionOne;
-              var questionTwo = this.state.questionTwo;
-              var questionThree = this.state.questionThree;
-              if (questionOne !== ""){
-                AsyncStorage.setItem("questionOne", questionOne);
-              } else {
-                AsyncStorage.setItem("questionOne", "*nada1*");
-              }
-              if (questionTwo  !== ""){
-                AsyncStorage.setItem("questionTwo", questionTwo);
-              } else {
-                AsyncStorage.setItem("questionTwo", "*nada2*");
-              }
-              if (questionThree  !== ""){
-                AsyncStorage.setItem("questionThree", questionThree);
-              } else {
-                AsyncStorage.setItem("questionThree", "*nada3*");
-              }
-              // AsyncStorage.setItem("hello", JSON.stringify(test_object))
-            }}
-            text="SAVE"
-            style={styles.button}
-          />
+
 
           <NavButton
             onPress={() => {
-              // var storedData = AsyncStorage.getItem("key");
-              // this.setState({display: storedData});
-              AsyncStorage.getItem("questionOne").then((value) => {
-                this.setState({display: value});
-              }).done();
+              this.showOne();
             }}
-            text="REVEAL"
+            text="show1"
             style={styles.button}
           />
-
-          <NavButton
-            onPress={() => {
-              this.goToDash();
-            }}
-            text="DASH"
-            style={styles.button}
-          />
-
-          <NavButton
-            onPress={() => {
-              this.goToEdit();
-            }}
-            text="EDIT Q"
-            style={styles.button}
-          />
-
-          <NavButton
-            onPress={() => {
-              this.goToView();
-            }}
-            text="View"
-            style={styles.button}
-          />
+          {nextButton}
 
         </View>
       </View>
@@ -199,7 +216,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var QuestionInput = React.createClass({
+var Answer = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -213,6 +230,8 @@ var QuestionInput = React.createClass({
       return <EditQuestions navigator={nav} />;
     } else if (route.id === 'MainDashboard'){
       return <MainDashboard navigator={nav} />;
+    } else if (route.id === 'Results'){
+      return <Results navigator={nav} />;
     }
     else {
       return (
@@ -307,6 +326,7 @@ var styles = StyleSheet.create({
   centerBox: {
     borderWidth: 2,
     borderColor: 'green',
+    justifyContent: 'space-between'
   },
   centerHeaderBox: {
     borderColor: 'orange',
@@ -315,6 +335,25 @@ var styles = StyleSheet.create({
   },
   centerHeaderText: {
 
+  },
+  choiceButton: {
+    backgroundColor: 'rgba(7, 35, 150, .2)',
+    marginTop: 20,
+    height: 50,
+    padding: 0,
+    width: 50,
+    borderRadius: 25,
+    borderWidth: 0,
+    marginBottom: 20,
+    borderColor: 'rgba(255,255,255,.5)',
+  },
+  choiceButtonBox:{
+    borderWidth: 2,
+    borderColor: "yellow",
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    marginLeft: 30,
+    marginRight: 30
   },
   button: {
     backgroundColor: 'rgba(251, 82, 45, .1)',
@@ -335,6 +374,14 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#E84C3D',
   },
+  choiceButtonText: {
+    fontFamily: 'AvenirNext-Regular',
+    paddingTop: 15,
+    fontSize: 15,
+    fontWeight: '500',
+    alignSelf: 'center',
+    color: '#1338db',
+  },
   centerMainContent:{
     margin: 20,
     alignSelf: 'center',
@@ -344,6 +391,6 @@ var styles = StyleSheet.create({
 
 });
 
-QuestionInput.external = true;
+Answer.external = true;
 
-module.exports = QuestionInput;
+module.exports = Answer;

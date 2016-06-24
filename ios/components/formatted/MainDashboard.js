@@ -15,6 +15,9 @@ var {
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
 
+var EditQuestions = require('./EditQuestions');
+var ViewQuestions = require('./ViewQuestions.js');
+
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
 
@@ -61,8 +64,11 @@ class NavMenu extends React.Component {
   clearAsync(){
     AsyncStorage.clear();
   }
-  nextPage(){
-    this.props.navigator.push({ id: 'MainDashboard' });
+  goToEdit(){
+    this.props.navigator.push({ id: 'EditQuestions' });
+  }
+  goToView(){
+    this.props.navigator.push({ id: 'ViewQuestions' });
   }
   render() {
     var height = Dimensions.get('window').height;
@@ -72,7 +78,7 @@ class NavMenu extends React.Component {
     var displayThree = this.state.questionThree
     return (
       <View style={styles.fullBack}>
-
+        <View style={styles.topBox}/>
         <View style={styles.restBox}>
           <Text>This is the main dashboard</Text>
 
@@ -118,43 +124,26 @@ class NavMenu extends React.Component {
               }
               // AsyncStorage.setItem("hello", JSON.stringify(test_object))
             }}
-            text="SAVE"
+            text="DATA"
             style={styles.button}
           />
 
           <NavButton
             onPress={() => {
-              // var storedData = AsyncStorage.getItem("key");
-              // this.setState({display: storedData});
-              AsyncStorage.getItem("questionOne").then((value) => {
-                this.setState({questionOne: value});
-              }).done();
-              AsyncStorage.getItem("questionTwo").then((value) => {
-                this.setState({questionTwo: value});
-              }).done();
-              AsyncStorage.getItem("questionThree").then((value) => {
-                this.setState({questionThree: value});
-              }).done();
+              this.goToEdit();
             }}
-            text="REVEAL"
+            text="EDIT Q"
             style={styles.button}
           />
 
           <NavButton
             onPress={() => {
-              this.clearAsync();
+              this.goToView();
             }}
-            text="X Async"
+            text="VIEW"
             style={styles.button}
           />
 
-          <NavButton
-            onPress={() => {
-              this.nextPage();
-            }}
-            text="NEXT"
-            style={styles.button}
-          />
         </View>
 
       </View>
@@ -170,9 +159,13 @@ var MainDashboard = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'MainDashboard') {
-      return <MainDashboard navigator={nav} />;
-    } else {
+    if (route.id === 'EditQuestions') {
+      return (<EditQuestions navigator={nav}/>);
+    }
+    else if (route.id === 'ViewQuestions'){
+      return (<ViewQuestions navigator={nav}/>);
+    }
+    else {
       return (
         <NavMenu
           message={route.message}
@@ -245,6 +238,12 @@ var styles = StyleSheet.create({
     paddingBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  topBox: {
+    justifyContent: 'space-between',
+    flex: .1,
+    borderColor: 'pink',
+    borderWidth: 4,
   },
   inputBox: {
     height: 40,
