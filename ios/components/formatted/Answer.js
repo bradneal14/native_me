@@ -17,7 +17,7 @@ var NEXTFILE = require('./NEXTFILE.js');
 var ViewQuestions = require('./ViewQuestions')
 var EditQuestions = require('./EditQuestions')
 var MainDashboard = require('./MainDashboard')
-var Results = require('./Results')
+var FinalCheck = require('./FinalCheck')
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -28,6 +28,19 @@ class NavButton extends React.Component {
     return (
       <TouchableHighlight
         style={styles.button}
+        underlayColor='rgba(251, 182, 45, .0)'
+        onPress={this.props.onPress}>
+        <Text style={styles.buttonText}>{this.props.text}</Text>
+      </TouchableHighlight>
+    );
+  }
+}
+
+class BigButton extends React.Component {
+  render() {
+    return (
+      <TouchableHighlight
+        style={styles.bigButton}
         underlayColor='rgba(251, 182, 45, .0)'
         onPress={this.props.onPress}>
         <Text style={styles.buttonText}>{this.props.text}</Text>
@@ -66,7 +79,8 @@ class NavMenu extends React.Component {
       display: `Welcome to the answer page. Today is ${date}`,
       questions: [],
       currentQuestion: -1,
-      numberOfQuestions: 3
+      numberOfQuestions: 3,
+      tempAnswers: []
     }
 
     this.state = displayData
@@ -97,6 +111,7 @@ class NavMenu extends React.Component {
   }
   showNext(){
     this.showOne(this.state.currentQuestion);
+  }
     //This is what I am working on now. It is one method that takes the
     //question number. The question number will be used to index into
     // a questions array or as a key in a questions hash
@@ -112,12 +127,14 @@ class NavMenu extends React.Component {
     //     this.showThree();
     //     break;
     // }
-  }
-  goToResults(){
-    this.props.navigator.push({ id: 'Results' });
+  goToFinalCheck(){
+    this.props.navigator.push({ id: 'FinalCheck' });
     this.testing();
   }
   showOne(question_number){
+    this.setState({display: this.state.questions[question_number]});
+    this.setState({currentQuestion: this.state.currentQuestion + 1});
+  }
     // this.setState({display: this.state.questionOne});
     //I will change the line above this comment to say:
     //this.setState({display: this.state.questions[question_number]});
@@ -134,20 +151,6 @@ class NavMenu extends React.Component {
     //from the array of questions, which may be edited or added to, and like a print or stamp, can
     //just be popped into the days hash each day. Yes this is definteily not the most efficient way
     //because I'm saving the same string over and over but its a start.
-    this.setState({display: this.state.questions[question_number]});
-    this.setState({currentQuestion: this.state.currentQuestion + 1});
-  }
-  showTwo(){
-    this.setState({display: this.state.questionTwo});
-    this.setState({currentQuestion: this.state.currentQuestion + 1});
-  }
-  showThree(){
-    this.setState({display: this.state.questionThree});
-    this.setState({currentQuestion: this.state.currentQuestion + 1});
-  }
-  clearAsync(){
-    AsyncStorage.clear();
-  }
   beginAnswers(){
     this.setState({currentQuestion: 0});
     this.showNext();
@@ -191,12 +194,11 @@ class NavMenu extends React.Component {
           />
       } else {
         var nextButton =
-        <NavButton
+        <BigButton
           onPress={() => {
-            this.goToResults();
+            this.goToFinalCheck();
           }}
-          text="Results"
-          style={styles.button}
+          text="CONTINUE"
           />
       }
       var bothChoiceButtons =
@@ -260,8 +262,8 @@ var Answer = React.createClass({
       return <EditQuestions navigator={nav} />;
     } else if (route.id === 'MainDashboard'){
       return <MainDashboard navigator={nav} />;
-    } else if (route.id === 'Results'){
-      return <Results navigator={nav} />;
+    } else if (route.id === 'FinalCheck'){
+      return <FinalCheck navigator={nav} />;
     }
     else {
       return (
@@ -384,6 +386,17 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 30,
     marginRight: 30
+  },
+  bigButton: {
+    backgroundColor: 'rgba(251, 82, 45, .1)',
+    marginTop: 20,
+    height: 50,
+    padding: 0,
+    width: 100,
+    borderRadius: 25,
+    borderWidth: 0,
+    marginBottom: 20,
+    borderColor: 'rgba(255,255,255,.5)',
   },
   button: {
     backgroundColor: 'rgba(251, 82, 45, .1)',

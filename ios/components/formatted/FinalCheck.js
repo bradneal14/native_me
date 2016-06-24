@@ -15,6 +15,7 @@ var {
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
 var MainDashboard = require('./ViewQuestions');
+var Exit = require('./Exit')
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -40,24 +41,21 @@ class NavMenu extends React.Component {
     super();
     var displayData = {
       display: "here",
-      questionOne: firstQuestion,
-      questionTwo: secondQuestion,
-      questionThree: thirdQuestion,
       answerOne: "",
       answerTwo: "",
       answerThree: "",
+      questions: [],
       numberOfQuestions: 3
     };
     this.state = displayData
 
-    var firstQuestion = AsyncStorage.getItem("questionOne").then((value) => {
-      this.setState({questionOne: value});
-    }).done();
-    var secondQuestion = AsyncStorage.getItem("questionTwo").then((value) => {
-      this.setState({questionTwo: value});
-    }).done();
-    var thirdQuestion = AsyncStorage.getItem("questionThree").then((value) => {
-      this.setState({questionThree: value});
+    var questions = AsyncStorage.getItem("questions").then((value) => {
+      if (value === null) {
+        this.setState({questions: ["blank", "blank", "BLANK"] });
+      } else {
+        console.log("this is the value:", value);
+        this.setState({questions: JSON.parse(value)});
+      }
     }).done();
 
     var firstAnswer = AsyncStorage.getItem("Answer1").then((value) => {
@@ -87,6 +85,9 @@ class NavMenu extends React.Component {
   testing(){
     console.log("the test is performed without my command");
   }
+  goToExit(){
+    this.props.navigator.push({id: 'Exit'})
+  }
   clearAsync(){
     AsyncStorage.clear();
   }
@@ -96,9 +97,9 @@ class NavMenu extends React.Component {
   render() {
     var height = Dimensions.get('window').height;
     var width = Dimensions.get('window').width;
-    var displayQuestionOne = this.state.questionOne
-    var displayQuestionTwo = this.state.questionTwo
-    var displayQuestionThree = this.state.questionThree
+    var displayQuestionOne = this.state.questions[0]
+    var displayQuestionTwo = this.state.questions[1]
+    var displayQuestionThree = this.state.questions[2]
     var displayAnswerOne = this.state.answerOne
     var displayAnswerTwo = this.state.answerTwo
     var displayAnswerThree = this.state.answerThree
@@ -106,7 +107,7 @@ class NavMenu extends React.Component {
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
-          <Text>RESULTS</Text>
+          <Text>ARE YOU SURE YOU WANT TO PROCEED?</Text>
 
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
@@ -146,9 +147,9 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.goToDash();
+              this.goToExit();
             }}
-            text="NEXT"
+            text="CONFIRM"
             style={styles.button}
           />
         </View>
@@ -158,7 +159,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var Results = React.createClass({
+var FinalCheck = React.createClass({
 
   statics: {
     title: '<Navigator>',
@@ -166,8 +167,8 @@ var Results = React.createClass({
   },
 
   renderScene: function(route, nav) {
-    if (route.id === 'MainDashboard') {
-      return <MainDashboard navigator={nav} />;
+    if (route.id === 'Exit') {
+      return <Exit navigator={nav} />;
     } else {
       return (
         <NavMenu
@@ -275,7 +276,7 @@ var styles = StyleSheet.create({
     marginTop: 20,
     height: 50,
     padding: 0,
-    width: 70,
+    width: 100,
     borderRadius: 25,
     borderWidth: 0,
     marginBottom: 20,
@@ -298,6 +299,6 @@ var styles = StyleSheet.create({
 
 });
 
-Results.external = true;
+FinalCheck.external = true;
 
-module.exports = Results;
+module.exports = FinalCheck;
