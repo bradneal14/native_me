@@ -143,49 +143,10 @@ class NavMenu extends React.Component {
         </View>
 
         <View style={styles.buttonBox}>
-          <NavButton
-            onPress={() => {
-              if (this.state.newTick !== ""){
-                AsyncStorage.setItem("date", this.state.newTick);
-                this.setState({"date": this.state.date + 1});
-                this.setState({"newTick": ""})
-                //NEED TO CLEAR INPUT FIELD
-              }
-              // AsyncStorage.setItem("hello", JSON.stringify(test_object))
-            }}
-            text="SAVE"
-            style={styles.button}
-          />
 
           <NavButton
             onPress={() => {
-              // var storedData = AsyncStorage.getItem("key");
-              // this.setState({display: storedData});
-              AsyncStorage.getItem("questionOne").then((value) => {
-                this.setState({questionOne: value});
-              }).done();
-              AsyncStorage.getItem("questionTwo").then((value) => {
-                this.setState({questionTwo: value});
-              }).done();
-              AsyncStorage.getItem("questionThree").then((value) => {
-                this.setState({questionThree: value});
-              }).done();
-            }}
-            text="REVEAL"
-            style={styles.button}
-          />
 
-          <NavButton
-            onPress={() => {
-              this.clearAsync();
-            }}
-            text="X Async"
-            style={styles.button}
-          />
-
-          <NavButton
-            onPress={() => {
-              this.nextPage();
             }}
             text="NEXT"
             style={styles.button}
