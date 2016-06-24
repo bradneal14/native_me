@@ -53,12 +53,17 @@ class NavMenu extends React.Component {
   constructor() {
     super();
     var answers = AsyncStorage.getItem("answers").then(value => {
-      console.log("this is the value:", value);
-      this.setState({answers: JSON.parse(value)});
+      if (value === null){
+        this.setState({answers: ["no", "no", "no"]})
+      } else {
+        console.log("this is the value:", value);
+        this.setState({answers: JSON.parse(value)});
+      }
     }).done();
-
+    var date = new Date();
+    console.log("date HERE", date);
     var displayData = {
-      display: "test",
+      display: `Welcome to the answer page. Today is ${date}`,
       questions: [],
       currentQuestion: -1,
       numberOfQuestions: 3
@@ -66,8 +71,13 @@ class NavMenu extends React.Component {
 
     this.state = displayData
     var questions = AsyncStorage.getItem("questions").then(value => {
-      console.log("this is the value:", value);
-      this.setState({questions: JSON.parse(value)});
+      console.log("here I AM", value)
+      if (value === null) {
+        this.setState({questions: ["blank", "blank", "BLANK"] });
+      } else {
+        console.log("this is the value:", value);
+        this.setState({questions: JSON.parse(value)});
+      }
     }).done();
     // this.getInitialState = this.getInitialState.bind(this);
   }
