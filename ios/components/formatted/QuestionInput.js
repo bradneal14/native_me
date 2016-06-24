@@ -43,10 +43,8 @@ class NavMenu extends React.Component {
 
     // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
-      display: "here",
-      questionOne: "",
-      questionTwo: "",
-      questionThree: ""
+      display: "WQHOOPES",
+      questions: [],
     }
     this.state = displayData
   }
@@ -136,21 +134,14 @@ class NavMenu extends React.Component {
               var questionOne = this.state.questionOne;
               var questionTwo = this.state.questionTwo;
               var questionThree = this.state.questionThree;
+              var questions = [questionOne, questionTwo, questionThree];
+              var blanks = ["blank", "blank", 'BLANK'];
               if (questionOne !== ""){
-                AsyncStorage.setItem("questionOne", questionOne);
+                AsyncStorage.setItem("questions", JSON.stringify(questionOne));
               } else {
-                AsyncStorage.setItem("questionOne", "*nada1*");
+                AsyncStorage.setItem("questions",  JSON.stringify(blanks));
               }
-              if (questionTwo  !== ""){
-                AsyncStorage.setItem("questionTwo", questionTwo);
-              } else {
-                AsyncStorage.setItem("questionTwo", "*nada2*");
-              }
-              if (questionThree  !== ""){
-                AsyncStorage.setItem("questionThree", questionThree);
-              } else {
-                AsyncStorage.setItem("questionThree", "*nada3*");
-              }
+
               // AsyncStorage.setItem("hello", JSON.stringify(test_object))
             }}
             text="SAVE"

@@ -52,26 +52,21 @@ class ChoiceButton extends React.Component {
 class NavMenu extends React.Component {
   constructor() {
     super();
-    var firstQuestion = AsyncStorage.getItem("questionOne").then((value) => {
-      this.setState({questionOne: value});
+    var questions = AsyncStorage.getItem("questions").then((value) => {
+      this.setState({display: value});
     }).done();
-    var secondQuestion = AsyncStorage.getItem("questionTwo").then((value) => {
-      this.setState({questionTwo: value});
-    }).done();
-    var thirdQuestion = AsyncStorage.getItem("questionThree").then((value) => {
-      this.setState({questionThree: value});
-    }).done();
-
     // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
       display: "test",
-      questionOne: firstQuestion,
-      questionTwo: secondQuestion,
-      questionThree: thirdQuestion,
+
       currentQuestion: -1,
       numberOfQuestions: 3
     }
     this.state = displayData
+  }
+  testing(){
+    console.log(this.state);
+    console.log("something is working");
   }
   toggleState(){
     if (this.state.display === "here"){
@@ -101,6 +96,7 @@ class NavMenu extends React.Component {
   }
   goToResults(){
     this.props.navigator.push({ id: 'Results' });
+    this.testing();
   }
   showOne(question_number){
     this.setState({display: this.state.questionOne});
@@ -119,7 +115,7 @@ class NavMenu extends React.Component {
     //from the array of questions, which may be edited or added to, and like a print or stamp, can
     //just be popped into the days hash each day. Yes this is definteily not the most efficient way
     //because I'm saving the same string over and over but its a start.
-    
+
     this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
   showTwo(){
@@ -213,6 +209,7 @@ class NavMenu extends React.Component {
               <Text style={styles.centerHeaderText}>
                 <Text>{display}</Text>
                 {this.state.userInput}
+                {this.state.display}
               </Text>
             </View>
 

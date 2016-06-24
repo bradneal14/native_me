@@ -14,7 +14,7 @@ var {
   TouchableHighlight,
 } = ReactNative;
 var NEXTFILE = require('./NEXTFILE.js');
-var MainDashboard = require('./MainDashboard');
+var MainDashboard = require('./ViewQuestions');
 
 import Dimensions from 'Dimensions';
 // var Device = require('react-native-device');
@@ -90,7 +90,7 @@ class NavMenu extends React.Component {
   clearAsync(){
     AsyncStorage.clear();
   }
-  nextPage(){
+  goToDash(){
     this.props.navigator.push({ id: 'MainDashboard' });
   }
   render() {
@@ -146,7 +146,7 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-
+              this.goToDash();
             }}
             text="NEXT"
             style={styles.button}
