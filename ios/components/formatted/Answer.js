@@ -68,7 +68,7 @@ class NavMenu extends React.Component {
       questionOne: firstQuestion,
       questionTwo: secondQuestion,
       questionThree: thirdQuestion,
-      currentQuestion: 1,
+      currentQuestion: -1,
       numberOfQuestions: 3
     }
     this.state = displayData
@@ -84,15 +84,15 @@ class NavMenu extends React.Component {
   }
   showNext(){
     switch (this.state.currentQuestion){
-      case 1:
+      case 0:
         this.showOne();
         this.setState({currentQuestion: this.state.currentQuestion + 1});
         break;
-      case 2:
+      case 1:
         this.showTwo();
         this.setState({currentQuestion: this.state.currentQuestion + 1});
         break;
-      case 3:
+      case 2:
         this.showThree();
         this.setState({currentQuestion: this.state.currentQuestion + 1});
         break;
@@ -113,6 +113,10 @@ class NavMenu extends React.Component {
   clearAsync(){
     AsyncStorage.clear();
   }
+  beginAnswers(){
+    this.setState({currentQuestion: 0});
+    this.showNext();
+  }
   tallyNo(){
     var currentQuestion = this.state.currentQuestion
     var storeAs = "Answer" + currentQuestion.toString();
@@ -128,20 +132,20 @@ class NavMenu extends React.Component {
     var width = Dimensions.get('window').width;
     var display = this.state.display
 
-    if (this.state.currentQuestion === 1){
+    if (this.state.currentQuestion === -1){
       var bothChoiceButtons =
         <View style={styles.choiceButtonBox}>
         </View>;
       var nextButton =
         <NavButton
           onPress={() => {
-            this.showNext();
+            this.beginAnswers();
           }}
           text="Begin"
           style={styles.button}
           />
     } else {
-      if (this.state.currentQuestion <= this.state.numberOfQuestions){
+      if (this.state.currentQuestion <= this.state.numberOfQuestions -1){
         var nextButton =
         <NavButton
           onPress={() => {
@@ -200,14 +204,6 @@ class NavMenu extends React.Component {
 
         <View style={styles.buttonBox}>
 
-
-          <NavButton
-            onPress={() => {
-              this.showOne();
-            }}
-            text="show1"
-            style={styles.button}
-          />
           {nextButton}
 
         </View>
