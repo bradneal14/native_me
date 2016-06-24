@@ -10,7 +10,7 @@ var {
   Text,
   TouchableHighlight,
 } = ReactNative;
-var AddTick = require('./QuestionInput.js');
+var AddTick = require('./Answer.js');
 
 import Dimensions from 'Dimensions';
 
