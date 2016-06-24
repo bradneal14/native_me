@@ -1,3 +1,13 @@
 - Add red border to yes/no selection on click
 - add review opportunity on what is now "results" page
-- 
+
+-edit question functionality
+-custom number of questions
+
+-view data in a meaningful way
+-connect to email for backup
+
+-constraints for not posting more than once per day
+
+- I need to figure out how the rules are going to work, maybe the default setting is
+one month for the first trial but you can change that later? Is there a settings page?

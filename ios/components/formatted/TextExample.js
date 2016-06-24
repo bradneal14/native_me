@@ -58,15 +58,14 @@ class NavMenu extends React.Component {
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
-                Text Example {this.state.tripped}
+                What is Me? {this.state.tripped}
               </Text>
             </View>
-            <Text style={styles.centerMainContent}> Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
-              Hello hello hello helllo hello
+            <Text style={styles.centerMainContent}>
+              Me is an app to help you track the things that matter.
+              Everyone has them - those things about ourselves we
+              would like to keep tabs on. Me is here to help you do
+              just that.
             </Text>
 
           </View>

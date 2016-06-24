@@ -52,6 +52,10 @@ class ChoiceButton extends React.Component {
 class NavMenu extends React.Component {
   constructor() {
     super();
+    var answers = AsyncStorage.getItem("answers").then(value => {
+      console.log("this is the value:", value);
+      this.setState({answers: JSON.parse(value)});
+    }).done();
 
     var displayData = {
       display: "test",
@@ -69,6 +73,7 @@ class NavMenu extends React.Component {
   }
   testing(){
     console.log(this.state);
+    console.log(Date());
     console.log("something is working");
   }
   toggleState(){
