@@ -106,6 +106,20 @@ class NavMenu extends React.Component {
     this.setState({display: this.state.questionOne});
     //I will change the line above this comment to say:
     //this.setState({display: this.state.questions[question_number]});
+    //I will need to also make changes to the saving mechanism to account for said data structure
+
+    //Notes on the saving aspect:
+    // I can have an array or hash of questions, and I will, but that should also be
+    //completely seperate from the saved data. The saved data will be organized in a hash
+    //with dates as keys. Each key will be mapped to a value, which will be a hash with questions
+    //as keys and yes/no as values. For now the questions and answers will be saved as strings
+    //but maybe I can do question_id or something in the future. So in any given day-key in the
+    //hash there would be a key which is also a hash with anywhere from 3-5 and maybe eventually
+    //more keys in it, each of which is a question with an answer value. This is entirely seperate
+    //from the array of questions, which may be edited or added to, and like a print or stamp, can
+    //just be popped into the days hash each day. Yes this is definteily not the most efficient way
+    //because I'm saving the same string over and over but its a start.
+    
     this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
   showTwo(){
