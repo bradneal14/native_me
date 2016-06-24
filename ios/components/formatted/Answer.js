@@ -85,30 +85,36 @@ class NavMenu extends React.Component {
   showNext(){
     switch (this.state.currentQuestion){
       case 0:
-        this.showOne();
-        this.setState({currentQuestion: this.state.currentQuestion + 1});
+      //This is what I am working on now. It is one method that takes the
+      //question number. The question number will be used to index into
+      // a questions array or as a key in a questions hash
+      //I will be able to get rid of the switch statement
+        this.showOne(0);
         break;
       case 1:
         this.showTwo();
-        this.setState({currentQuestion: this.state.currentQuestion + 1});
         break;
       case 2:
         this.showThree();
-        this.setState({currentQuestion: this.state.currentQuestion + 1});
         break;
     }
   }
   goToResults(){
     this.props.navigator.push({ id: 'Results' });
   }
-  showOne(){
+  showOne(question_number){
     this.setState({display: this.state.questionOne});
+    //I will change the line above this comment to say:
+    //this.setState({display: this.state.questions[question_number]});
+    this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
   showTwo(){
     this.setState({display: this.state.questionTwo});
+    this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
   showThree(){
     this.setState({display: this.state.questionThree});
+    this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
   clearAsync(){
     AsyncStorage.clear();
