@@ -35,15 +35,13 @@ class NavButton extends React.Component {
   }
 }
 
-let test_object = "sample test object";
-
 class NavMenu extends React.Component {
   constructor() {
     super();
 
     // this.getInitialState = this.getInitialState.bind(this);
     var displayData = {
-      display: "WQHOOPES",
+      display: "WHOOPES",
       questions: [],
     }
     this.state = displayData
@@ -85,7 +83,6 @@ class NavMenu extends React.Component {
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
                 QUESTION INPUT 1
-                {this.state.userInput}
               </Text>
             </View>
             <Text>{this.state.questionOne}</Text>
@@ -103,7 +100,6 @@ class NavMenu extends React.Component {
                 QUESTION INPUT 2
               </Text>
             </View>
-            <Text>{this.state.questionTwo}</Text>
             <TextInput
               multiline = {true}
               ref = "questionTwo"
@@ -131,13 +127,13 @@ class NavMenu extends React.Component {
         <View style={styles.buttonBox}>
           <NavButton
             onPress={() => {
-              var questionOne = this.state.questionOne;
-              var questionTwo = this.state.questionTwo;
-              var questionThree = this.state.questionThree;
-              var questions = [questionOne, questionTwo, questionThree];
+              var questionOne = this.state.questionOne.trim();
+              var questionTwo = this.state.questionTwo.trim();
+              var questionThree = this.state.questionThree.trim();
+              var allQuestions = [questionOne, questionTwo, questionThree];
               var blanks = ["blank", "blank", 'BLANK'];
               if (questionOne !== ""){
-                AsyncStorage.setItem("questions", JSON.stringify(questionOne));
+                AsyncStorage.setItem("questions", JSON.stringify(allQuestions));
               } else {
                 AsyncStorage.setItem("questions",  JSON.stringify(blanks));
               }
@@ -148,17 +144,6 @@ class NavMenu extends React.Component {
             style={styles.button}
           />
 
-          <NavButton
-            onPress={() => {
-              // var storedData = AsyncStorage.getItem("key");
-              // this.setState({display: storedData});
-              AsyncStorage.getItem("questionOne").then((value) => {
-                this.setState({display: value});
-              }).done();
-            }}
-            text="REVEAL"
-            style={styles.button}
-          />
 
           <NavButton
             onPress={() => {

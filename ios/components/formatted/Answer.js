@@ -52,17 +52,20 @@ class ChoiceButton extends React.Component {
 class NavMenu extends React.Component {
   constructor() {
     super();
-    var questions = AsyncStorage.getItem("questions").then((value) => {
-      this.setState({display: value});
-    }).done();
-    // this.getInitialState = this.getInitialState.bind(this);
+
     var displayData = {
       display: "test",
-
+      questions: [],
       currentQuestion: -1,
       numberOfQuestions: 3
     }
+
     this.state = displayData
+    var questions = AsyncStorage.getItem("questions").then(value => {
+      console.log("this is the value:", value);
+      this.setState({questions: JSON.parse(value)});
+    }).done();
+    // this.getInitialState = this.getInitialState.bind(this);
   }
   testing(){
     console.log(this.state);
@@ -78,28 +81,29 @@ class NavMenu extends React.Component {
     }
   }
   showNext(){
-    switch (this.state.currentQuestion){
-      case 0:
-      //This is what I am working on now. It is one method that takes the
-      //question number. The question number will be used to index into
-      // a questions array or as a key in a questions hash
-      //I will be able to get rid of the switch statement
-        this.showOne(0);
-        break;
-      case 1:
-        this.showTwo();
-        break;
-      case 2:
-        this.showThree();
-        break;
-    }
+    this.showOne(this.state.currentQuestion);
+    //This is what I am working on now. It is one method that takes the
+    //question number. The question number will be used to index into
+    // a questions array or as a key in a questions hash
+    //I will be able to get rid of the switch statement
+    // switch (this.state.currentQuestion){
+    //   case 0:
+    //     this.showOne(0);
+    //     break;
+    //   case 1:
+    //     this.showTwo();
+    //     break;
+    //   case 2:
+    //     this.showThree();
+    //     break;
+    // }
   }
   goToResults(){
     this.props.navigator.push({ id: 'Results' });
     this.testing();
   }
   showOne(question_number){
-    this.setState({display: this.state.questionOne});
+    // this.setState({display: this.state.questionOne});
     //I will change the line above this comment to say:
     //this.setState({display: this.state.questions[question_number]});
     //I will need to also make changes to the saving mechanism to account for said data structure
@@ -115,7 +119,7 @@ class NavMenu extends React.Component {
     //from the array of questions, which may be edited or added to, and like a print or stamp, can
     //just be popped into the days hash each day. Yes this is definteily not the most efficient way
     //because I'm saving the same string over and over but its a start.
-
+    this.setState({display: this.state.questions[question_number]});
     this.setState({currentQuestion: this.state.currentQuestion + 1});
   }
   showTwo(){
@@ -161,7 +165,7 @@ class NavMenu extends React.Component {
           style={styles.button}
           />
     } else {
-      if (this.state.currentQuestion <= this.state.numberOfQuestions -1){
+      if (this.state.currentQuestion <= this.state.numberOfQuestions-1){
         var nextButton =
         <NavButton
           onPress={() => {
@@ -208,8 +212,6 @@ class NavMenu extends React.Component {
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
                 <Text>{display}</Text>
-                {this.state.userInput}
-                {this.state.display}
               </Text>
             </View>
 
