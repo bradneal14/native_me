@@ -129,11 +129,6 @@ class NavMenu extends React.Component {
     // }
   goToFinalCheck(){
     AsyncStorage.setItem("answers", JSON.stringify(this.state.tempAnswers));
-    // if (this.state.tempAnswers === []){
-    //   console.log("top");
-    //   AsyncStorage.setItem("answers", "nada");
-    // } else {
-    // }
     this.props.navigator.push({ id: 'FinalCheck' });
     this.testing();
   }

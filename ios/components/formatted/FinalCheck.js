@@ -91,8 +91,20 @@ class NavMenu extends React.Component {
     }
   }
   lockItIn(){
-    var date = new Date
-    console.log(date)
+    if (this.state.questions.length !== this.state.answers.length){
+      this.setState({display: "Something is wrong"})
+    } else {
+      var date = new Date;
+      var survey = {answers: this.state.answers, questions: this.state.questions};
+      var fullDate = JSON.stringify([date.getDate(), date.getMonth(), date.getFullYear()]);
+      //date is array: day, month, year
+      var fullSurvey = JSON.stringify(survey)
+      AsyncStorage.setItem({fullDate: fullSurvey});
+      //Saves the date as key, (object with question and answer arrays as values) as value
+    }
+    console.log(this.state.questions.length);
+    console.log(this.state.answers);
+    console.log(date.getDate())
   }
   testing(){
     console.log("the test is performed without my command");
@@ -119,9 +131,10 @@ class NavMenu extends React.Component {
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
-          <Text>FINAL CHECK -- ARE YOU SURE YOU WANT TO PROCEED?</Text>
+          <Text>THIS IS THE FINAL CHECK -- ARE YOU SURE YOU WANT TO PROCEED?</Text>
 
           <View style={styles.centerBox}>
+            <Text>{this.state.display}</Text>
             <View style={styles.centerHeaderBox}>
               <Text style={styles.centerHeaderText}>
                 Q-1
