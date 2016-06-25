@@ -1,13 +1,23 @@
 - Add red border to yes/no selection on click
 - add review opportunity on what is now "results" page
 
--"edit question" functionality
+-"edit question" functionality (use AsyncStorage.mergeItem)
 -custom number of questions
 
 -view data in a meaningful way
 -connect to email for backup
 
--constraints for not posting more than once per day
+-constraints for not answering more than once per day
 
 - I need to figure out how the rules are going to work, maybe the default setting is
 one month for the first trial but you can change that later? Is there a settings page?
+
+-Add a way to choose your pin
+
+
+
+
+PRIORITIES IN ORDER:
+- figure out how to properly save the answer data using the date object as the key.
+- Add constraint so that you can only answer questions once per minute (will be changed to day)
+  + this will be an addition to index.js I think
