@@ -11,7 +11,7 @@ var {AsyncStorage} = React;
 var FirstLanding = require('./ios/components/formatted/Landing.js');
 
 
-var PinLogin = require('./ios/components/formatted/Answer.js');
+var PinLogin = require('./ios/components/formatted/PinLogin.js');
 //CHANGE THIS BACK TO PINLOGIN.JS AFTER DEV
 
 //four is WELCOME

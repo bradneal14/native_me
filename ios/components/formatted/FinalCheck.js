@@ -41,9 +41,7 @@ class NavMenu extends React.Component {
     super();
     var displayData = {
       display: "here",
-      answerOne: "",
-      answerTwo: "",
-      answerThree: "",
+      answers: [],
       questions: [],
       numberOfQuestions: 3
     };
@@ -51,22 +49,31 @@ class NavMenu extends React.Component {
 
     var questions = AsyncStorage.getItem("questions").then((value) => {
       if (value === null) {
-        this.setState({questions: ["blank", "blank", "BLANK"] });
+        this.setState({questions: ["blank question", "blank question", "BLANK QUESTION"] });
       } else {
-        console.log("this is the value:", value);
+        console.log("this is the QUESTION value:", value);
         this.setState({questions: JSON.parse(value)});
       }
     }).done();
 
-    var firstAnswer = AsyncStorage.getItem("Answer1").then((value) => {
-      this.setState({answerOne: value});
+    var answers = AsyncStorage.getItem("answers").then((value) => {
+      if (value === null) {
+        this.setState({answers: ["no answer", "no answer", "NO ANSWER"] });
+      } else {
+        console.log("this is the ANSWER value:", value);
+        this.setState({answers: JSON.parse(value)});
+      }
     }).done();
-    var secondAnswer = AsyncStorage.getItem("Answer2").then((value) => {
-      this.setState({answerTwo: value});
-    }).done();
-    var thirdAnswer = AsyncStorage.getItem("Answer3").then((value) => {
-      this.setState({answerThree: value});
-    }).done();
+    //
+    // var firstAnswer = AsyncStorage.getItem("Answer1").then((value) => {
+    //   this.setState({answerOne: value});
+    // }).done();
+    // var secondAnswer = AsyncStorage.getItem("Answer2").then((value) => {
+    //   this.setState({answerTwo: value});
+    // }).done();
+    // var thirdAnswer = AsyncStorage.getItem("Answer3").then((value) => {
+    //   this.setState({answerThree: value});
+    // }).done();
 
 
     // this.getInitialState = this.getInitialState.bind(this);
@@ -100,9 +107,9 @@ class NavMenu extends React.Component {
     var displayQuestionOne = this.state.questions[0]
     var displayQuestionTwo = this.state.questions[1]
     var displayQuestionThree = this.state.questions[2]
-    var displayAnswerOne = this.state.answerOne
-    var displayAnswerTwo = this.state.answerTwo
-    var displayAnswerThree = this.state.answerThree
+    var displayAnswerOne = this.state.answers[0]
+    var displayAnswerTwo = this.state.answers[1]
+    var displayAnswerThree = this.state.answers[2]
     return (
       <View style={styles.fullBack}>
 

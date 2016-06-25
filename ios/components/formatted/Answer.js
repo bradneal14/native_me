@@ -128,6 +128,7 @@ class NavMenu extends React.Component {
     //     break;
     // }
   goToFinalCheck(){
+    AsyncStorage.setItem("answers", JSON.stringify(this.state.tempAnswers));
     this.props.navigator.push({ id: 'FinalCheck' });
     this.testing();
   }
@@ -156,14 +157,16 @@ class NavMenu extends React.Component {
     this.showNext();
   }
   tallyNo(){
-    var currentQuestion = this.state.currentQuestion
-    var storeAs = "Answer" + currentQuestion.toString();
-    AsyncStorage.setItem(storeAs, "No");
+    this.setState({tempAnswers: this.state.tempAnswers.concat(["No"])});
+    // var currentQuestion = this.state.currentQuestion
+    // var storeAs = "Answer" + currentQuestion.toString();
+    // AsyncStorage.setItem(storeAs, "No");
   }
   tallyYes(){
-    var currentQuestion = this.state.currentQuestion
-    var storeAs = "Answer" + currentQuestion.toString();
-    AsyncStorage.setItem(storeAs, "Yes");
+    this.setState({tempAnswers: this.state.tempAnswers.concat(["Yes"])});
+    // var currentQuestion = this.state.currentQuestion
+    // var storeAs = "Answer" + currentQuestion.toString();
+    // AsyncStorage.setItem(storeAs, "Yes");
   }
   render() {
     var height = Dimensions.get('window').height;
