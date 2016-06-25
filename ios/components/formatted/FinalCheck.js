@@ -99,7 +99,7 @@ class NavMenu extends React.Component {
       var fullDate = JSON.stringify([date.getDate(), date.getMonth(), date.getFullYear()]);
       //date is array: day, month, year
       var fullSurvey = JSON.stringify(survey)
-      AsyncStorage.setItem({fullDate: fullSurvey});
+      AsyncStorage.setItem(fullDate, fullSurvey);
       //Saves the date as key, (object with question and answer arrays as values) as value
     }
     console.log(this.state.questions.length);
