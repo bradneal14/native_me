@@ -57,7 +57,8 @@ class NavMenu extends React.Component {
     }).done();
 
     var answers = AsyncStorage.getItem("answers").then((value) => {
-      if (value === null) {
+      console.log("value", value)
+      if (value === "[]") {
         this.setState({answers: ["no answer", "no answer", "NO ANSWER"] });
       } else {
         console.log("this is the ANSWER value:", value);
@@ -89,6 +90,10 @@ class NavMenu extends React.Component {
       this.setState({display: "here"});
     }
   }
+  lockItIn(){
+    var date = new Date
+    console.log(date)
+  }
   testing(){
     console.log("the test is performed without my command");
   }
@@ -114,7 +119,7 @@ class NavMenu extends React.Component {
       <View style={styles.fullBack}>
 
         <View style={styles.restBox}>
-          <Text>ARE YOU SURE YOU WANT TO PROCEED?</Text>
+          <Text>FINAL CHECK -- ARE YOU SURE YOU WANT TO PROCEED?</Text>
 
           <View style={styles.centerBox}>
             <View style={styles.centerHeaderBox}>
@@ -154,7 +159,8 @@ class NavMenu extends React.Component {
 
           <NavButton
             onPress={() => {
-              this.goToExit();
+              this.lockItIn();
+              // this.goToExit();
             }}
             text="CONFIRM"
             style={styles.button}
